@@ -82,7 +82,7 @@ disqusShortname = ""
     # To change the background image on the homepage banner, replace 'banner.jpg' in
     # the 'static/img' folder.
     title = "Hi, my name is Alex"
-    subtitle = "On this website I will display my work with R as well as my passion for aviation subject"
+    subtitle = "On this website I will display my work with R"
     buttonText = "I want to know more"
 
 
@@ -150,23 +150,8 @@ disqusShortname = ""
     enable = true
     buttonSend = "Send Alex a message"
     buttonClear = "Clear"
-
-    # Since this template is static, the contact form uses www.formspree.io as a
-    # proxy. The form makes a POST request to their servers to send the actual
-    # email. Visitors can send up to a 1000 emails each month for free.
-    #
-    # What you need to do for the setup?
-    #
-    # - set your email address under 'email' below and uncomment
-    # - upload the generated site to your server
-    # - send a dummy email yourself to confirm your account
-    # - click the confirm link in the email from www.formspree.io
-    # - you're done. Happy mailing!
     formEmail = "apracht.mfa2021@london.edu"
 
-    # Contact Section
-    # You can add multiple emails, phone numbers, or addresses
-    # by copying the corresponding map with frontmatter code.
     [[params.contact.email]]
     title = "Email"
     email = "apracht.mfa2021@london.edu"
