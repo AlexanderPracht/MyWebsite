@@ -1,0 +1,300 @@
+---
+title: "General Social Survey"
+author: "Alexander Pracht"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    theme: flatly
+    highlight: zenburn
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+    code_folding: show
+---
+
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE, 
+  warning = FALSE, 
+  tidy=FALSE,     # display code as typed
+  size="small")   # slightly smaller font for code
+options(digits = 3)
+
+# default figure size
+knitr::opts_chunk$set(
+  fig.width=6.75, 
+  fig.height=6.75,
+  fig.align = "center"
+)
+```
+
+
+```{r load-libraries, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(lubridate)
+library(here)
+library(skimr)
+library(janitor)
+library(httr)
+library(readxl)
+library(vroom)
+```
+
+# General Social Survey (GSS)
+
+The [General Social Survey (GSS)](http://www.gss.norc.org/) gathers data on American society in order to monitor and explain trends in attitudes, behaviours, and attributes. Many trends have been tracked for decades, so one can see the evolution of attitudes, etc in American Society.
+
+
+In this assignment we analyze data from the **2016 GSS sample data**, using it to estimate values of *population parameters* of interest about US adults. The GSS sample data file has 2867 observations of 935 variables, but we are only interested in very few of these variables and you are using a smaller file.
+
+
+```{r, read_gss_data, cache=TRUE}
+gss <- read_csv(here::here("data", "smallgss2016.csv"), 
+                na = c("", "Don't know",
+                       "No answer", "Not applicable"))
+glimpse(gss)
+```
+
+We observe that many responses should not be taken into consideration, like “No Answer”, “Don’t Know”, “Not applicable”, “Refused to Answer”, thus, we merge them under `na`.
+
+We will be creating 95% confidence intervals for population parameters. The variables we have are the following:
+
+- hours and minutes spent on email weekly. The responses to these questions are recorded in the `emailhr` and `emailmin` variables. For example, if the response is 2.50 hours, this would be recorded as emailhr = 2 and emailmin = 30.
+- `snapchat`, `instagrm`, `twitter`: whether respondents used these social media in 2016
+- `sex`: Female - Male
+- `degree`: highest education level attained
+
+## Instagram and Snapchat, by sex
+
+We estimate the population proportion of Snapchat or Instagram users in 2016.
+
+Firstly, we create a new variable, snap_insta that is Yes if the respondent reported using any of Snapchat (snapchat) or Instagram (instagrm), and No if not.
+
+
+```{r}
+
+social_media <- gss%>%
+  mutate(snap_insta = if_else(snapchat == "NA" & instagrm == "NA", "NA", if_else(snapchat == "Yes" | instagrm == "Yes", "Yes", "No")))
+
+glimpse(social_media)
+
+```
+
+We calculate the proportion of Yes’s for snap_insta among those who answered the question and add it to a new column.
+
+```{r}
+
+social_media_stats <- social_media %>%
+  group_by(snap_insta)%>%
+  count(snap_insta)%>%
+  pivot_wider(names_from=snap_insta, values_from = n )%>%
+  mutate(proportion_yes = Yes/(Yes+No))
+
+social_media_stats
+
+```
+
+We observe that the proportion of people being active on either Snapchat or Instagram is 37.5%.
+
+Using the formula for finding the Confidence Interval, we construct 95% CIs for men and women who used either Snapchat or Instagram.
+
+
+```{r}
+
+social_media_summary <- social_media %>% 
+  filter(snap_insta != "NA") %>% 
+  mutate(snap_insta_num = snap_insta == "Yes") %>% 
+  group_by(sex) %>% 
+  summarise(count = n(),
+            mean_prob = mean(snap_insta_num),
+            sd_prob = sd(snap_insta_num),
+            t_critical_95 = qt(0.975, count-1),
+            lower_bound = mean_prob - t_critical_95 * (sd_prob/(count)^0.5),
+            upper_bound = mean_prob + t_critical_95 * (sd_prob/(count)^0.5)
+            )
+
+social_media_summary
+
+```
+
+The confidence intervals for males and females are shown in the table above.
+
+```{r}
+ggplot(social_media_summary, 
+       aes(sex, mean_prob, ymin = lower_bound, ymax = upper_bound))+
+  geom_errorbar(width = 0.2, size = 1) +
+  geom_point(size = 5) +
+  theme_bw() +
+  labs(title = "Confidence Intervals for males and females who use Snapchat or Instagram do not overlap",
+       subtitle = "Confidence Intervals of Proportion of people using either Snapchat or Instagram by gender",
+       x="Sex (Male/Female)", y= "Proportion of people using Snapchat or Instagram") +
+  scale_y_continuous(labels = scales::percent) +
+  geom_rect(aes(xmin = 0, xmax = 3, ymin = social_media_summary$upper_bound[2], ymax=social_media_summary$lower_bound[1]), fill = "red", alpha = 0.1, size=0.1) +
+  NULL
+```
+
+Finally, when we plot the output, we can see that the confidence intervals for females and males do not overlap considering their CIs for Snapchat or Instagram use proportions.
+
+
+## Twitter, by education level
+
+We estimate the *population* proportion of Twitter users by education level in 2016.
+
+There are 5 education levels in variable `degree` which, in ascneding order of years of education, are Lt high school, High School, Junior college, Bachelor, Graduate. 
+
+First, we turn `degree` from a character variable into a factor variable.
+Second, we create a  new variable, `bachelor_graduate` that is *Yes* if the respondent has either a `Bachelor` or `Graduate` degree.
+
+```{r}
+twitter_population <- gss %>% 
+  mutate(degree = factor(degree, order = TRUE, levels = c("Lt high school", "High school", "Junior college", "Bachelor", "Graduate")),
+         bachelor_graduate = if_else(degree >= "Bachelor", "Yes", "No"))
+
+twitter_population
+
+```
+
+We calculate the proportion of `bachelor_graduate` who do (Yes) and who don't (No) use twitter. 
+
+```{r}
+twitter_bach <- twitter_population %>% 
+  filter(bachelor_graduate == "Yes", twitter != "NA") %>% 
+  mutate(twitter_num = twitter == "Yes") %>% 
+  group_by(bachelor_graduate, twitter) %>% 
+  count()
+
+twitter_bach
+```
+
+We use the CI formula for proportions to construct two 95% CIs for `bachelor_graduate` vs whether they use (Yes) and don't (No) use twitter. 
+
+```{r}
+twitter_bach <- twitter_population %>% 
+  filter(bachelor_graduate != "NA", twitter != "NA") %>% 
+  mutate(twitter_num = twitter == "Yes") %>% 
+  group_by(bachelor_graduate, twitter) %>% 
+  count() %>% 
+  pivot_wider(names_from = twitter, values_from = n) %>% 
+  mutate(proportion_twitter_users = Yes /(Yes+No),
+         proportion_notwitter_users = No /(Yes+No))
+
+twitter_bach
+```
+```{r, graduate_ci_calculating}
+graduate_ci <- twitter_population %>% 
+  filter(twitter != "NA", bachelor_graduate != "NA") %>% 
+  mutate(bachelor_graduate_adj = bachelor_graduate == "Yes") %>% 
+  group_by(twitter) %>% 
+  summarize(count = n(),
+            proportion_graduate = mean(bachelor_graduate_adj),
+            sd_prop = sd(bachelor_graduate_adj),
+            t_critical_95 = qt(0.975, count-1),
+            lower_bound_95 = proportion_graduate - t_critical_95 * (sd_prop/(count)^0.5),
+            upper_bound_95 = proportion_graduate + t_critical_95 * (sd_prop/(count)^0.5)
+            )
+
+
+graduate_ci%>%
+  
+  select(lower_bound_95,upper_bound_95)
+```
+```{r}
+ggplot(graduate_ci, 
+       aes(twitter, proportion_graduate, ymax = upper_bound_95, ymin = lower_bound_95))+
+  geom_errorbar(aes(width = 0.2), size = 1) + #other way would be errorbar
+  geom_point(size = 5) +
+  theme_bw() +
+  #xlim(0.2, 0.8) +
+  labs(title = "Confidence intervals for 'bachelor_graduate' proportions do not overlap",
+       subtitle = "CI for proportion of twitter users that are either graduate or bachelor",
+       x="Twitter user: (Yes/No)", y= "Proportion of bachelors and graduates") +
+  scale_y_continuous(labels = scales::percent) +
+  geom_rect(aes(xmin = 0, xmax = 3, ymin = graduate_ci$upper_bound_95[1], ymax=graduate_ci$lower_bound_95[2]), fill = "red", alpha = 0.1, size=0.1) +
+  NULL
+```
+
+We observe that the two confidence intervals do not overlap. This shows that there is a significant difference in education between twitter users and non-twitter users.
+
+## Email usage
+
+We estimate the *population* parameter on time spent on email weekly.
+
+We create a new variable called `email` that combines `emailhr` and `emailmin` to reports the number of minutes the respondents spend on email weekly, and then summarise it.
+
+```{r}
+
+email_pop <- gss %>% 
+  mutate(email_in_min = as.numeric(hours(emailhr) + minutes(emailmin),"minutes"))
+
+email_pop %>% filter(!is.na(email_in_min)) %>% 
+  summarize(mean = mean(email_in_min), median = median(email_in_min))
+
+```
+
+We visualise the distribution of this new variable.
+
+```{r}
+email_pop %>% 
+  filter(!is.na(email_in_min)) %>% 
+  summarize(count = n(),
+            mean_email_time = mean(email_in_min, na.rm = TRUE),
+            median_email_time = median(email_in_min, na.rm = TRUE))
+```
+We create a density plot to visualise it.
+
+```{r}
+
+ggplot(email_pop, aes(x = email_in_min))+
+  geom_density(fill = "grey") +
+  theme_bw()+
+  geom_vline(aes(xintercept = mean(email_pop$email_in_min, na.rm = TRUE), color="mean"), size = 1, linetype = 2) +
+  geom_vline(aes(xintercept = median(email_pop$email_in_min, na.rm = TRUE), color="median"), size = 1, linetype = 2) +
+  scale_color_manual(name = "statistics", values = c(mean = "blue", median = "red")) +
+  labs(title = "Density of the answers and few outliers make the disrtibution heavily right-skewed",
+       subtitle = "Density plot for amount of minutes respondents spent on email",
+       x = "Time spent on emails (min)",
+       y = "Density") + 
+  geom_text(mapping = aes(x = mean(email_pop$email_in_min, na.rm = TRUE),
+                          y = 0,
+                          label = round(mean(email_pop$email_in_min, na.rm = TRUE),0), 
+                          hjust = 0, vjust = -0.5, angle=90),colour="blue") +
+  geom_text(mapping = aes(x = median(email_pop$email_in_min, na.rm = TRUE),
+                          y = 0,
+                          label = round(median(email_pop$email_in_min, na.rm = TRUE),0), 
+                          hjust = 0, vjust = -0.5, angle=90),colour="red") +
+  
+  #scale_x_log10() +
+  NULL
+```
+We see that the median is a better choice in this situation while the distribution is skewed. The median is more robust against outliers than the mean.
+
+We use bootstrapping method to find the 95% confidence interval for the mean amount of time Americans spend on email weekly.
+
+```{r}
+library(infer)
+
+set.seed(1234)
+
+point_estimate = mean(email_pop$email_in_min, na.rm = TRUE)
+
+email_pop_ci <- email_pop %>% 
+  specify(formula = email_in_min ~ NULL) %>% 
+  generate(reps = 1000) %>% 
+  calculate(stat = "mean") %>% 
+  get_ci(type = "se", point_estimate = point_estimate) %>% 
+  mutate(point_estimate = point_estimate)
+  
+
+email_pop_ci %>% 
+  mutate(lower_ci = hms::as.hms(lower_ci),
+         upper_ci = hms::as.hms(upper_ci),
+         point_estimate = hms::as.hms(point_estimate)
+         )
+```
+
+We conclude that the 95% confidence interval goes from 6 hours and 23 minutes up to 7 hours and 30 minutes. This means that we can be 95% percent sure that our interval includes the true population mean.
+
+For instance, if we were to increase our confidence to 99%, we can expect wider confidence interval. If the range of our interval increases, we are more likely to capture the true population mean within our interval.
