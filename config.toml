@@ -92,8 +92,8 @@ disqusShortname = ""
     # Display your showcases here.
     
     [[params.tiles.showcase]]
-      title = "How to become a pilot"
-      subtitle = "All information that you need to have"
+      title = "xxxxxxxx"
+      subtitle = "xxxx"
       image = "frankfurt.jpg"
       url = "blogs/pilot"
 
