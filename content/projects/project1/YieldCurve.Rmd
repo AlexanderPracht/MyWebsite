@@ -46,14 +46,10 @@ library(tidyquant)
 ```
 
 
-# Challenge 1: Yield Curve inversion
+# What Yiel Curves Can Predict...
 
-Every so often, we hear warnings from commentators on the "inverted yield curve" and its predictive power with respect to recessions. An explainer what a [inverted yield curve is can be found here](https://www.reuters.com/article/us-usa-economy-yieldcurve-explainer/explainer-what-is-an-inverted-yield-curve-idUSKBN1O50GA). If you'd rather listen to something, here is a great podcast from [NPR on yield curve indicators](https://www.podbean.com/media/share/dir-4zgj9-6aefd11)
-
-In addition, many articles and commentators think that, e.g., [*Yield curve inversion is viewed as a harbinger of recession*](https://www.bloomberg.com/news/articles/2019-08-14/u-k-yield-curve-inverts-for-first-time-since-financial-crisis). One can always doubt whether inversions are truly a harbinger of recessions, and [use the attached parable on yield curve inversions](https://twitter.com/5_min_macro/status/1161627360946511873).
-
-
-In our case we will look at US data and use the [FRED database](https://fred.stlouisfed.org/) to download historical yield curve rates, and plot the yield curves since 1999 to see when the yield curves flatten.
+Yield curves of US treasuries show the different yields for different maturity dates. 
+We looked at US data and used the [FRED database](https://fred.stlouisfed.org/). Although we have 
 
 
 First, we will use the `tidyquant` package to download monthly rates for different durations. 
