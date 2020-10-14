@@ -53,8 +53,6 @@ We looked at US data and used the [FRED database](https://fred.stlouisfed.org/).
 1. 3-Month Treasury Bill
 2. 10-Year Treasury Rate
 
-First, we will use the `tidyquant` package to download monthly rates for different durations. 
-
 ```{r get_rates, warning=FALSE}
 # Get a list of FRED codes for US rates and US yield curve; choose monthly frequency
 # to see, eg., the 3-month T-bill https://fred.stlouisfed.org/series/TB3MS
@@ -114,12 +112,7 @@ The first thing would be to join this dataframe `df` with the dataframe `mylooku
 yield_curve <-left_join(df,mylookup,by="symbol") 
 ```
 
-## Plotting the yield curve
-
-### Yields on US rates by duration since 1960
-
-We want to reproduce the following graph:
-
+### Monthly yields on US rates by duration since 1999 on a year-by-year basis
 
 ```{r graph1_yield_curve, fig.width=10, fig.height=8}
 yield_curve$var <- factor(yield_curve$var, levels =myvars)
@@ -133,12 +126,6 @@ ggplot(yield_curve, aes(x=date, y=price, colour = var))+
        x="",
        y="%")
 ```
-
-
-
-### Monthly yields on US rates by duration since 1999 on a year-by-year basis
-
-We want to reproduce the following graph:
 
 ```{r, challenge1_plot2, fig.width=10}
 
@@ -165,11 +152,10 @@ ggplot(plot2, aes(x=maturity,
 
 ```
 
-
-
 ### 3-month and 10-year yields since 1999
 
-We want to reproduce the following graph:
+The following plot shows the spread between 30 years and 3 months as a blue/red ribbon, based on whether the spread is positive (blue) or negative(red).
+Furthermore it includes US recessions (grey shaded areas).
 
 ```{r plot3, fig.width=15, fig.height=12}
 
@@ -187,15 +173,6 @@ ggplot(plot3, aes(x=date, y=price, colour= var))+
 
 ```
 
-To plot our final graph we will
-
-1. Setup data for US recessions 
-1. Superimpose recessions as the grey areas in our plot
-1. Plot the spread between 30 years and 3 months as a blue/red ribbon, based on whether the spread is positive (blue) or negative(red)
-
-
-- For the first, the code below creates a dataframe with all US recessions since 1946
-
 ```{r setup_US-recessions, warning=FALSE}
 
 # get US recession dates after 1946 from Wikipedia 
@@ -212,8 +189,6 @@ recessions <- tibble(
 recessions <- recessions%>%
   filter(year(from) >=1960)
 ```
-
-Then we continue to plot the graph:
 
 ```{r , plot4, fig.width=15}
 plot4 <- yield_curve%>%
@@ -244,7 +219,8 @@ ggplot(plot4, aes(x=date, y=diff))+
  
   
 ```
+
 This graph shows us that the yield curve actually flattens before recessions. Therefore, a flatten of the yield curve can predict an upcoming recession.
-Furthermore, since 1999 the 3-month yield more than a 10-year:
+Furthermore, since 1999 the 3-month Bill yield more than a 10-year-rate in the following years:
 - 2000
 - 2006-2007
