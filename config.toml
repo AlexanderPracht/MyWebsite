@@ -95,7 +95,7 @@ disqusShortname = ""
       title = "xxxxxxxx"
       subtitle = "xxxx"
       image = "frankfurt.jpg"
-      url = "blogs/pilot"
+      url = "post"
 
     [[params.tiles.showcase]]
       title = "Yield Curve Inversion"

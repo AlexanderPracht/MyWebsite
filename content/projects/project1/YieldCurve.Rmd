@@ -49,8 +49,9 @@ library(tidyquant)
 # What Yiel Curves Can Predict...
 
 Yield curves of US treasuries show the different yields for different maturity dates. 
-We looked at US data and used the [FRED database](https://fred.stlouisfed.org/). Although we have 
-
+We looked at US data and used the [FRED database](https://fred.stlouisfed.org/). Although we have the yields for maturities between 3 months and 30 years, we would like to focus on only two of them:
+1. 3-Month Treasury Bill
+2. 10-Year Treasury Rate
 
 First, we will use the `tidyquant` package to download monthly rates for different durations. 
 
