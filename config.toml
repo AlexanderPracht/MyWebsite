@@ -133,7 +133,7 @@ disqusShortname = ""
     subtitle = """During my studies at London Business School I developed my skills in data analysis and coding in R. 
     To see some analyses click on the link below."""
     buttonText = "Download Alex CV"
-    href = "data/Alexander Pracht CV 2020.pdf"
+    href = "projects/CV/Alexander Pracht CV 2020.pdf"
 
 
   # Contact section
@@ -189,7 +189,7 @@ disqusShortname = ""
       label = "LinkedIn"
       
     [[params.footer.social]]
-      icon = "fa-file"
+      icon = "fa-icon-resume"
       url = "https://alex-pracht.netlify.app/projects/CV/Alexander Pracht CV 2020.pdf"
       label = "CV"
 
