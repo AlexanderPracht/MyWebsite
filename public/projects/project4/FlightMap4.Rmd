@@ -1,0 +1,140 @@
+---
+title: "FlightMap"
+author: "Alexander Pracht"
+date: "10/14/2020"
+output: html_document
+---
+Using [this link](https://weiminwang.blog/2015/06/24/use-r-to-plot-flight-routes-on-a-fancy-world-background/):
+
+
+```{r}
+library(ggplot2)
+library(maps)
+library(rgeos)
+library(maptools)
+library(ggmap)
+library(geosphere)
+library(plyr)
+library(rgdal)
+
+urbanareasin <- readOGR("data/ne_10m_urban_areas/ne_10m_urban_areas.shp")
+worldmap = map_data ("world")
+wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A", fill="#090D2A", alpha=0.8, data=worldmap))
+ 
+urb <- c(geom_polygon(aes(long, lat, group = group),
+size = 0.3,
+color = "#ffffff",
+fill = "#ffffff",
+alpha = 1,
+data = urbanareasin))
+ggplot() + wrld + urb + theme(panel.background = element_rect(fill='#00001C',colour='#00001C'),
+panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=3,
+label=paste("Created by Alexander Pracht",sep="\n"),color="white")
+
+```
+
+```{r, plotting, fig.width=15}
+library(ggplot2)
+library(maps)
+library(rgeos)
+library(maptools)
+library(ggmap)
+library(geosphere)
+library(plyr)
+library(dplyr)
+
+ 
+fortify.SpatialLinesDataFrame = function(model, data, ...){
+ldply(model@lines, fortify)
+}
+
+lh_data = read.csv("data/LHcargo_FlightScheduleALL.csv", header=TRUE)
+
+class(lh_data$Start_Op)
+
+lh_data_sliced <-lh_data %>%
+  select(DEP,ARR,Start_Op, End_Op)%>%
+  mutate(Start_Op = as.Date.character(Start_Op, format = "%d%b%y"), 
+         End_Op = as.Date(End_Op, format = "%d%b%y"))
+
+lh_15_10 <- lh_data_sliced%>%
+  filter(Start_Op <= "2020-10-15")
+lh_11 <- lh_data_sliced%>%
+  filter(Start_Op <= "2020-11-30", End_Op >= "2020-11-01")
+
+airports_dep = read.csv("data/airports.csv", header=FALSE)%>%
+  select(V5, V7, V8)
+
+colnames(airports_dep) <- c("DEP", "Lat_Dep", "Long_Dep")
+
+airports_arr = read.csv("data/airports.csv", header=FALSE)%>%
+  select(V5, V7, V8)
+
+colnames(airports_arr) <- c("ARR", "Lat_Arr", "Long_Arr")
+
+schedule_final_10 <- left_join(lh_15_10, airports_arr)
+schedule_final_10 <- left_join(schedule_final_10, airports_dep)
+schedule_final_11 <- left_join(lh_11, airports_arr)
+schedule_final_11 <- left_join(schedule_final_11, airports_dep)
+
+library(data.table)
+count.dups <- function(DF){
+  DT <- data.table(DF)
+  DT[,.N, by = names(DT)]
+}
+
+count_final_10 <- count.dups(schedule_final_10)
+count_final_10 <- na.omit(count_final_10)
+count_final_11 <- count.dups(schedule_final_11)
+count_final_11 <- na.omit(count_final_11)
+ 
+# get worldmap
+worldmap = map_data ("world")
+
+library(rgdal) 
+urbanareasin <- rgdal::readOGR("data/ne_10m_urban_areas/ne_10m_urban_areas.shp")
+urb <- c(geom_polygon(aes(long, lat, group = group),
+size = 0.3,
+color = "#ffffff",
+fill = "#ffffff",
+alpha = 1,
+data = urbanareasin))
+
+# wrld layer
+wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A",
+fill="#090D2A", alpha=0.8, data=worldmap))
+
+# October
+ggplot() +
+wrld +
+urb+
+geom_segment(data= count_final_10, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=N), alpha = 0.1, show.legend = FALSE)+ 
+  scale_color_gradientn(colours = rainbow(20), limits = c(0,8))+
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme(legend.position = c(0,0.4),
+legend.justification = c(0,1),
+legend.background = element_rect(colour = NA, fill = NA),
+legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.text = element_text(colour='white', size = 20)) +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flights Lufthansa Cargo October"),color="white")
+
+# November
+ggplot() +
+wrld +
+urb+
+geom_segment(data= count_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=N), alpha = 0.1, show.legend = FALSE)+ 
+  scale_color_gradientn(colours = rainbow(20), limits = c(0,8))+
+theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+theme(legend.position = c(0,0.4),
+legend.justification = c(0,1),
+legend.background = element_rect(colour = NA, fill = NA),
+legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.text = element_text(colour='white', size = 20)) +
+#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
+annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+label=paste("Flights Lufthansa Cargo November"),color="white")
+
+```
+
