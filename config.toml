@@ -56,7 +56,7 @@ disqusShortname = ""
       url = "blogs/ipsum"
 
     [[params.navigation.links]]
-      name = "Elements"
+      name = "Hallo"
       url = "elements.html"
 
     # Add custom links here by uncommenting code below. To remove links just delete
@@ -73,7 +73,7 @@ disqusShortname = ""
 
     # Button Style 2
     [[params.navigation.button2]]
-      name = "Log In"
+      name = "Do nothing Button"
       url = "#"
 
 
