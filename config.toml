@@ -41,7 +41,7 @@ disqusShortname = ""
     subtitle = "Portfolio website"
     menu = "Menu"
     # Optional logo as brand stored in img/
-    # logo = "logo.png"
+    logo = "LBS.png"
 
     [[params.navigation.links]]
       name = "Home"
