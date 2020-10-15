@@ -112,6 +112,12 @@ disqusShortname = ""
       subtitle = "Lufthansa Cargo Flight Schedule"
       image = "pic04.jpg"
       url = "/projects/project4/flightmap6"
+      
+    [[params.tiles.showcase]]
+      title = "Download Alex's CV"
+      subtitle = "CV Alexander Pracht 2020"
+      image = ""
+      url = "/projects/CV"
 
   [params.blog]
     # All blogs defined in their own files. You can find example blogs
