@@ -11,33 +11,6 @@ I wanted to check my hypothesis that Lufthansa Cargo offers few flights right no
 For visualisation I looked at the following [webpage](https://weiminwang.blog/2015/06/24/use-r-to-plot-flight-routes-on-a-fancy-world-background/).
 However some of the functions on this page are already outdated.
 
-
-```{r}
-library(ggplot2)
-library(maps)
-library(rgeos)
-library(maptools)
-library(ggmap)
-library(geosphere)
-library(plyr)
-library(rgdal)
-
-urbanareasin <- readOGR("data/ne_10m_urban_areas/ne_10m_urban_areas.shp")
-worldmap = map_data ("world")
-wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A", fill="#090D2A", alpha=0.8, data=worldmap))
- 
-urb <- c(geom_polygon(aes(long, lat, group = group),
-size = 0.3,
-color = "#ffffff",
-fill = "#ffffff",
-alpha = 1,
-data = urbanareasin))
-ggplot() + wrld + urb + theme(panel.background = element_rect(fill='#00001C',colour='#00001C'),
-panel.grid.major = element_blank(), panel.grid.minor = element_blank()) + annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=3,
-label=paste("Created by Alexander Pracht",sep="\n"),color="white")
-
-```
-
 ```{r, plotting, fig.width=15}
 library(ggplot2)
 library(maps)
@@ -48,25 +21,33 @@ library(geosphere)
 library(plyr)
 library(dplyr)
 library(rgdal)
- 
+library(data.table)
+count.dups <- function(DF){
+  DT <- data.table(DF)
+  DT[,.N, by = names(DT)]
+}
+
 fortify.SpatialLinesDataFrame = function(model, data, ...){
 ldply(model@lines, fortify)
 }
-
+# importing the data from the csv file
 lh_data = read.csv("data/LHcargo_FlightScheduleALL.csv", header=TRUE)
 
-class(lh_data$Start_Op)
-
+# selecting relevant columns and format dates
 lh_data_sliced <-lh_data %>%
   select(DEP,ARR,Start_Op, End_Op)%>%
   mutate(Start_Op = as.Date.character(Start_Op, format = "%d%b%y"), 
          End_Op = as.Date(End_Op, format = "%d%b%y"))
 
+# filter for the current flight schedule as of 15th October 2020
 lh_15_10 <- lh_data_sliced%>%
   filter(Start_Op <= "2020-10-15")
+
+# filter for flight schedule as of November 2020
 lh_11 <- lh_data_sliced%>%
   filter(Start_Op <= "2020-11-30", End_Op >= "2020-11-01")
 
+# formatting and using airport codes to translate to geographical long and lat
 airports_dep = read.csv("data/airports.csv", header=FALSE)%>%
   select(V5, V7, V8)
 
@@ -77,17 +58,14 @@ airports_arr = read.csv("data/airports.csv", header=FALSE)%>%
 
 colnames(airports_arr) <- c("ARR", "Lat_Arr", "Long_Arr")
 
+# include geographical long and lat to the 2 flight schedules
 schedule_final_10 <- left_join(lh_15_10, airports_arr)
 schedule_final_10 <- left_join(schedule_final_10, airports_dep)
 schedule_final_11 <- left_join(lh_11, airports_arr)
 schedule_final_11 <- left_join(schedule_final_11, airports_dep)
 
-library(data.table)
-count.dups <- function(DF){
-  DT <- data.table(DF)
-  DT[,.N, by = names(DT)]
-}
 
+# delete duplicates to only show 
 count_final_10 <- count.dups(schedule_final_10)
 count_final_10 <- na.omit(count_final_10)
 count_final_11 <- count.dups(schedule_final_11)
