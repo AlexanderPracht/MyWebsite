@@ -117,7 +117,7 @@ disqusShortname = ""
       title = "Download Alex's CV"
       subtitle = "CV Alexander Pracht 2020"
       image = ""
-      url = "/projects/CV"
+      href = "/projects/CV/Alexander Pracht CV 2020.pdf"
 
   [params.blog]
     # All blogs defined in their own files. You can find example blogs
