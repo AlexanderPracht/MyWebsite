@@ -41,7 +41,7 @@ disqusShortname = ""
     subtitle = "Portfolio website"
     menu = "Menu"
     # Optional logo as brand stored in img/
-    logo = "LBS2.png"
+    logo = "LBS.png"
 
     [[params.navigation.links]]
       name = "Home"
@@ -110,10 +110,10 @@ disqusShortname = ""
       url = "blogs/project2"
 
     [[params.tiles.showcase]]
-      title = "Ipsum"
-      subtitle = "Nisl Sed Aliquam"
+      title = "Aviation Case Study"
+      subtitle = "Lufthansa Cargo Flight Schedule"
       image = "pic04.jpg"
-      url = "blogs/ipsum"
+      url = "projects/project4"
 
   [params.blog]
     # All blogs defined in their own files. You can find example blogs
