@@ -42,9 +42,7 @@ library(ggmap)
 library(geosphere)
 library(plyr)
 library(dplyr)
- 
-# setwd('\your\directory')
-# rm(list = ls())
+
  
 fortify.SpatialLinesDataFrame = function(model, data, ...){
 ldply(model@lines, fortify)
@@ -89,17 +87,6 @@ count_final_10 <- count.dups(schedule_final_10)
 count_final_10 <- na.omit(count_final_10)
 count_final_11 <- count.dups(schedule_final_11)
 count_final_11 <- na.omit(count_final_11)
-
-# calculate routes for each row
-#routes = gcIntermediate(count_final[,c('Long_Dep', 'Lat_Dep')], count_final[,c('Long_Arr', 'Lat_Arr')], addStartEnd=TRUE, breakAtDateLine=TRUE)
-
-#, 200, breakAtDateLine = FALSE, addStartEnd = TRUE, sp=TRUE)
-# fortify to dataframe
-#fortifiedroutes = fortify.SpatialLinesDataFrame(routes)
- 
-# merge to form great circles
-#routes_count = data.frame('count'=count_final$N, 'id'=1:nrow(count_final), 'Airport'=count_final$DEP)
-#greatcircles = merge(fortifiedroutes, routes_count, all.x=T, by='id')
  
 # get worldmap
 worldmap = map_data ("world")
