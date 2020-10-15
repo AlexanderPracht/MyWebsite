@@ -190,7 +190,7 @@ disqusShortname = ""
       
     [[params.footer.social]]
       icon = "fa-linkedin"
-      url= "data/Alexander Pracht CV 2020.pdf"
+      href= "data/Alexander Pracht CV 2020.pdf"
       label = "CV"
 
     [[params.footer.quicklinks]]
