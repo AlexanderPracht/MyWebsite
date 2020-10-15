@@ -23,7 +23,7 @@ disqusShortname = ""
   description = "MFA2021 student at London Business School "
 
   # Link custom assets relative to /static
-  custom_css = [<link rel="stylesheet" href="public/css/academicons.min.css"/>]
+  custom_css = []
   custom_js  = []
   favicon    = "/img/favicon_LBS.ico"
 
@@ -189,7 +189,7 @@ disqusShortname = ""
       label = "LinkedIn"
       
     [[params.footer.social]]
-      icon = "fa-icon-resume"
+      icon = "fa-file"
       url = "https://alex-pracht.netlify.app/projects/CV/Alexander Pracht CV 2020.pdf"
       label = "CV"
 
