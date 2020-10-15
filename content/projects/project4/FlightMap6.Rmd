@@ -104,7 +104,7 @@ fill="#090D2A", alpha=0.8, data=worldmap))
 
 ## Lufthansa Cargo Flight Schedule (15th October 2020)
 
-```{r, plotting, fig.width=15}
+```{r, plottingOct, fig.width=15}
 # October
 ggplot() +
 wrld +
@@ -124,7 +124,7 @@ label=paste("Flights Lufthansa Cargo October"),color="white")
 
 ## Lufthansa Cargo Flight Schedule (November 2020)
 
-```{r, plotting, fig.width=15}
+```{r, plottingNov, fig.width=15}
 # November
 ggplot() +
 wrld +
