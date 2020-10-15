@@ -99,13 +99,13 @@ disqusShortname = ""
       title = "Yield Curve Inversion"
       subtitle = "What US treasuries can predict"
       image = "pic02.jpg"
-      url = "projects/project1"
+      url = "projects/project1/yieldcurve"
 
     [[params.tiles.showcase]]
       title = "Weather Anomalies"
       subtitle = "Does the data show statistically significant weather changes?"
       image = "pic02.jpg"
-      url = "blogs/project2"
+      url = "projects/project2/weatheranomalies"
 
     [[params.tiles.showcase]]
       title = "Aviation Case Study"
