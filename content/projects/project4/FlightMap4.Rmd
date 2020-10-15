@@ -33,7 +33,7 @@ label=paste("Created by Alexander Pracht",sep="\n"),color="white")
 
 ```
 
-```{r}
+```{r, plotting, fig.width=15}
 library(ggplot2)
 library(maps)
 library(rgeos)
@@ -108,7 +108,7 @@ fill="#090D2A", alpha=0.8, data=worldmap))
 ggplot() +
 wrld +
 urb+
-geom_segment(data= count_final_10, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=N), alpha = 0.1)+ 
+geom_segment(data= count_final_10, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=N), alpha = 0.1, show.legend = FALSE)+ 
   scale_color_gradientn(colours = rainbow(20), limits = c(0,8))+
 theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
 theme(legend.position = c(0,0.4),
@@ -124,7 +124,7 @@ label=paste("Flights Lufthansa Cargo October"),color="white")
 ggplot() +
 wrld +
 urb+
-geom_segment(data= count_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=N), alpha = 0.1)+ 
+geom_segment(data= count_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=N), alpha = 0.1, show.legend = FALSE)+ 
   scale_color_gradientn(colours = rainbow(20), limits = c(0,8))+
 theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
 theme(legend.position = c(0,0.4),
