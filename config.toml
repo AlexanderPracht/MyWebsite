@@ -187,6 +187,12 @@ disqusShortname = ""
       icon = "fa-linkedin"
       url= "https://www.linkedin.com/in/alexander-pracht-871233151/"
       label = "LinkedIn"
+      
+    [[params.footer.social]]
+      icon = "cv"
+      icon_pack = "ai"
+      url= "data/Alexander Pracht CV 2020.pdf"
+      label = "CV"
 
     [[params.footer.quicklinks]]
       text = "Design: "
