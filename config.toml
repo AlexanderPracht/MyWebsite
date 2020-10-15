@@ -79,8 +79,6 @@ disqusShortname = ""
 
   # Banner section
   [params.banner]
-    # To change the background image on the homepage banner, replace 'banner.jpg' in
-    # the 'static/img' folder.
     title = "Hi, my name is Alex"
     subtitle = "On this website I will display my work with R"
     buttonText = "I want to know more"
@@ -128,8 +126,8 @@ disqusShortname = ""
     title = "My data analysis using R"
     subtitle = """During my studies at London Business School I developed my skills in data analysis and coding in R. 
     To see some analyses click on the link below."""
-    buttonText = "See Alex's Analyses"
-    url = "blogs"
+    buttonText = "Download Alex CV"
+    href = "data/Alexander Pracht CV 2020.pdf"
 
 
   # Contact section
