@@ -189,7 +189,7 @@ disqusShortname = ""
       label = "LinkedIn"
       
     [[params.footer.social]]
-      icon = "ai-cv"
+      icon = "img/cv.png"
       url = "https://alex-pracht.netlify.app/projects/CV/Alexander Pracht CV 2020.pdf"
       label = "CV"
 
