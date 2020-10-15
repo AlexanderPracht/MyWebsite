@@ -190,7 +190,6 @@ disqusShortname = ""
       
     [[params.footer.social]]
       icon = "fa-file"
-      
       url = "https://alex-pracht.netlify.app/projects/CV/Alexander Pracht CV 2020.pdf"
       label = "CV"
 
