@@ -1,0 +1,408 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="MFA2021 student at London Business School ">
+	<meta name="author" content="Alex Pracht">
+	<meta name="generator" content="Hugo 0.76.0" />
+	<title>General Social Survey &middot; Portfolio website for Alex Pracht</title>
+	<!-- Stylesheets -->
+	
+	<link rel="stylesheet" href="/css/main.css"/>
+	
+	
+
+	
+
+	<!-- Custom Fonts -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon_LBS.ico">
+	<link rel="icon" type="image/x-icon" href="/img/favicon_LBS.ico">
+	
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="js/ie/html5shiv.js"></script>
+	<script src="js/ie/html5shiv.jsrespond.min.js"></script>
+	<![endif]-->
+</head>
+
+    <body>
+
+    <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+    <header id="header" class="alt">
+        <a href="/" class="logo"><img src="/img/LBS.png" alt="" /></a>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+<!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            
+                <li><a href="/">Home</a></li>
+            
+                <li><a href="/blogs">Blogs</a></li>
+            
+                <li><a href="/blogs/ipsum">Generic Blog</a></li>
+            
+                <li><a href="/elements.html">Elements</a></li>
+            
+
+        </ul>
+        <ul class="actions vertical">
+            
+                <li><a href="/blogs" class="button special fit">Get Started</a></li>
+            
+            
+                <li><a href="/" class="button fit">Log In</a></li>
+            
+        </ul>
+    </nav>
+
+        <!-- Main -->
+            <div id="main" class="alt">
+
+                
+                    <section id="one">
+                        <div class="inner">
+                            <header class="major">
+                                <h1>General Social Survey</h1>
+                            </header>
+                            
+                            
+
+
+<div id="general-social-survey-gss" class="section level1">
+<h1>General Social Survey (GSS)</h1>
+<p>The <a href="http://www.gss.norc.org/">General Social Survey (GSS)</a> gathers data on American society in order to monitor and explain trends in attitudes, behaviours, and attributes. Many trends have been tracked for decades, so one can see the evolution of attitudes, etc in American Society.</p>
+<p>In this assignment we analyze data from the <strong>2016 GSS sample data</strong>, using it to estimate values of <em>population parameters</em> of interest about US adults. The GSS sample data file has 2867 observations of 935 variables, but we are only interested in very few of these variables and you are using a smaller file.</p>
+<pre class="r"><code>gss &lt;- read_csv(here::here(&quot;data&quot;, &quot;smallgss2016.csv&quot;), 
+                na = c(&quot;&quot;, &quot;Don&#39;t know&quot;,
+                       &quot;No answer&quot;, &quot;Not applicable&quot;))
+glimpse(gss)</code></pre>
+<pre><code>## Rows: 2,867
+## Columns: 7
+## $ emailmin &lt;chr&gt; &quot;0&quot;, &quot;30&quot;, &quot;NA&quot;, &quot;10&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;0...
+## $ emailhr  &lt;chr&gt; &quot;12&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;2&quot;, &quot;40&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;2...
+## $ snapchat &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;NA&quot;, &quot;N...
+## $ instagrm &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;NA&quot;, &quot;...
+## $ twitter  &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;No&quot;...
+## $ sex      &lt;chr&gt; &quot;Male&quot;, &quot;Male&quot;, &quot;Male&quot;, &quot;Female&quot;, &quot;Female&quot;, &quot;Female&quot;, &quot;Mal...
+## $ degree   &lt;chr&gt; &quot;Bachelor&quot;, &quot;High school&quot;, &quot;Bachelor&quot;, &quot;High school&quot;, &quot;Gra...</code></pre>
+<p>We observe that many responses should not be taken into consideration, like “No Answer”, “Don’t Know”, “Not applicable”, “Refused to Answer”, thus, we merge them under <code>na</code>.</p>
+<p>We will be creating 95% confidence intervals for population parameters. The variables we have are the following:</p>
+<ul>
+<li>hours and minutes spent on email weekly. The responses to these questions are recorded in the <code>emailhr</code> and <code>emailmin</code> variables. For example, if the response is 2.50 hours, this would be recorded as emailhr = 2 and emailmin = 30.</li>
+<li><code>snapchat</code>, <code>instagrm</code>, <code>twitter</code>: whether respondents used these social media in 2016</li>
+<li><code>sex</code>: Female - Male</li>
+<li><code>degree</code>: highest education level attained</li>
+</ul>
+<div id="instagram-and-snapchat-by-sex" class="section level2">
+<h2>Instagram and Snapchat, by sex</h2>
+<p>We estimate the population proportion of Snapchat or Instagram users in 2016.</p>
+<p>Firstly, we create a new variable, snap_insta that is Yes if the respondent reported using any of Snapchat (snapchat) or Instagram (instagrm), and No if not.</p>
+<pre class="r"><code>social_media &lt;- gss%&gt;%
+  mutate(snap_insta = if_else(snapchat == &quot;NA&quot; &amp; instagrm == &quot;NA&quot;, &quot;NA&quot;, if_else(snapchat == &quot;Yes&quot; | instagrm == &quot;Yes&quot;, &quot;Yes&quot;, &quot;No&quot;)))
+
+glimpse(social_media)</code></pre>
+<pre><code>## Rows: 2,867
+## Columns: 8
+## $ emailmin   &lt;chr&gt; &quot;0&quot;, &quot;30&quot;, &quot;NA&quot;, &quot;10&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;NA&quot;, ...
+## $ emailhr    &lt;chr&gt; &quot;12&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;NA&quot;, &quot;2&quot;, &quot;40&quot;, &quot;NA&quot;, &quot;0&quot;, &quot;NA&quot;, ...
+## $ snapchat   &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;NA&quot;, ...
+## $ instagrm   &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;NA&quot;,...
+## $ twitter    &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;N...
+## $ sex        &lt;chr&gt; &quot;Male&quot;, &quot;Male&quot;, &quot;Male&quot;, &quot;Female&quot;, &quot;Female&quot;, &quot;Female&quot;, &quot;M...
+## $ degree     &lt;chr&gt; &quot;Bachelor&quot;, &quot;High school&quot;, &quot;Bachelor&quot;, &quot;High school&quot;, &quot;G...
+## $ snap_insta &lt;chr&gt; &quot;NA&quot;, &quot;No&quot;, &quot;No&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;Yes&quot;, &quot;NA&quot;, &quot;Yes&quot;, &quot;NA&quot;,...</code></pre>
+<p>We calculate the proportion of Yes’s for snap_insta among those who answered the question and add it to a new column.</p>
+<pre class="r"><code>social_media_stats &lt;- social_media %&gt;%
+  group_by(snap_insta)%&gt;%
+  count(snap_insta)%&gt;%
+  pivot_wider(names_from=snap_insta, values_from = n )%&gt;%
+  mutate(proportion_yes = Yes/(Yes+No))
+
+social_media_stats</code></pre>
+<pre><code>## # A tibble: 1 x 4
+##    `NA`    No   Yes proportion_yes
+##   &lt;int&gt; &lt;int&gt; &lt;int&gt;          &lt;dbl&gt;
+## 1  1495   858   514          0.375</code></pre>
+<p>We observe that the proportion of people being active on either Snapchat or Instagram is 37.5%.</p>
+<p>Using the formula for finding the Confidence Interval, we construct 95% CIs for men and women who used either Snapchat or Instagram.</p>
+<pre class="r"><code>social_media_summary &lt;- social_media %&gt;% 
+  filter(snap_insta != &quot;NA&quot;) %&gt;% 
+  mutate(snap_insta_num = snap_insta == &quot;Yes&quot;) %&gt;% 
+  group_by(sex) %&gt;% 
+  summarise(count = n(),
+            mean_prob = mean(snap_insta_num),
+            sd_prob = sd(snap_insta_num),
+            t_critical_95 = qt(0.975, count-1),
+            lower_bound = mean_prob - t_critical_95 * (sd_prob/(count)^0.5),
+            upper_bound = mean_prob + t_critical_95 * (sd_prob/(count)^0.5)
+            )
+
+social_media_summary</code></pre>
+<pre><code>## # A tibble: 2 x 7
+##   sex    count mean_prob sd_prob t_critical_95 lower_bound upper_bound
+##   &lt;chr&gt;  &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 Female   769     0.419   0.494          1.96       0.384       0.454
+## 2 Male     603     0.318   0.466          1.96       0.281       0.356</code></pre>
+<p>The confidence intervals for males and females are shown in the table above.</p>
+<pre class="r"><code>ggplot(social_media_summary, 
+       aes(sex, mean_prob, ymin = lower_bound, ymax = upper_bound))+
+  geom_errorbar(width = 0.2, size = 1) +
+  geom_point(size = 5) +
+  theme_bw() +
+  labs(title = &quot;Confidence Intervals for males and females who use Snapchat or Instagram do not overlap&quot;,
+       subtitle = &quot;Confidence Intervals of Proportion of people using either Snapchat or Instagram by gender&quot;,
+       x=&quot;Sex (Male/Female)&quot;, y= &quot;Proportion of people using Snapchat or Instagram&quot;) +
+  scale_y_continuous(labels = scales::percent) +
+  geom_rect(aes(xmin = 0, xmax = 3, ymin = social_media_summary$upper_bound[2], ymax=social_media_summary$lower_bound[1]), fill = &quot;red&quot;, alpha = 0.1, size=0.1) +
+  NULL</code></pre>
+<p><img src="/projects/project3/GSS_files/figure-html/unnamed-chunk-4-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>Finally, when we plot the output, we can see that the confidence intervals for females and males do not overlap considering their CIs for Snapchat or Instagram use proportions.</p>
+</div>
+<div id="twitter-by-education-level" class="section level2">
+<h2>Twitter, by education level</h2>
+<p>We estimate the <em>population</em> proportion of Twitter users by education level in 2016.</p>
+<p>There are 5 education levels in variable <code>degree</code> which, in ascneding order of years of education, are Lt high school, High School, Junior college, Bachelor, Graduate.</p>
+<p>First, we turn <code>degree</code> from a character variable into a factor variable.
+Second, we create a new variable, <code>bachelor_graduate</code> that is <em>Yes</em> if the respondent has either a <code>Bachelor</code> or <code>Graduate</code> degree.</p>
+<pre class="r"><code>twitter_population &lt;- gss %&gt;% 
+  mutate(degree = factor(degree, order = TRUE, levels = c(&quot;Lt high school&quot;, &quot;High school&quot;, &quot;Junior college&quot;, &quot;Bachelor&quot;, &quot;Graduate&quot;)),
+         bachelor_graduate = if_else(degree &gt;= &quot;Bachelor&quot;, &quot;Yes&quot;, &quot;No&quot;))
+
+twitter_population</code></pre>
+<pre><code>## # A tibble: 2,867 x 8
+##    emailmin emailhr snapchat instagrm twitter sex    degree     bachelor_gradua~
+##    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;  &lt;ord&gt;      &lt;chr&gt;           
+##  1 0        12      NA       NA       NA      Male   Bachelor   Yes             
+##  2 30       0       No       No       No      Male   High scho~ No              
+##  3 NA       NA      No       No       No      Male   Bachelor   Yes             
+##  4 10       0       NA       NA       NA      Female High scho~ No              
+##  5 NA       NA      Yes      Yes      No      Female Graduate   Yes             
+##  6 0        2       No       Yes      No      Female Junior co~ No              
+##  7 0        40      NA       NA       NA      Male   High scho~ No              
+##  8 NA       NA      Yes      Yes      No      Female High scho~ No              
+##  9 0        0       NA       NA       NA      Male   High scho~ No              
+## 10 NA       NA      No       No       No      Male   Junior co~ No              
+## # ... with 2,857 more rows</code></pre>
+<p>We calculate the proportion of <code>bachelor_graduate</code> who do (Yes) and who don’t (No) use twitter.</p>
+<pre class="r"><code>twitter_bach &lt;- twitter_population %&gt;% 
+  filter(bachelor_graduate == &quot;Yes&quot;, twitter != &quot;NA&quot;) %&gt;% 
+  mutate(twitter_num = twitter == &quot;Yes&quot;) %&gt;% 
+  group_by(bachelor_graduate, twitter) %&gt;% 
+  count()
+
+twitter_bach</code></pre>
+<pre><code>## # A tibble: 2 x 3
+## # Groups:   bachelor_graduate, twitter [2]
+##   bachelor_graduate twitter     n
+##   &lt;chr&gt;             &lt;chr&gt;   &lt;int&gt;
+## 1 Yes               No        375
+## 2 Yes               Yes       114</code></pre>
+<p>We use the CI formula for proportions to construct two 95% CIs for <code>bachelor_graduate</code> vs whether they use (Yes) and don’t (No) use twitter.</p>
+<pre class="r"><code>twitter_bach &lt;- twitter_population %&gt;% 
+  filter(bachelor_graduate != &quot;NA&quot;, twitter != &quot;NA&quot;) %&gt;% 
+  mutate(twitter_num = twitter == &quot;Yes&quot;) %&gt;% 
+  group_by(bachelor_graduate, twitter) %&gt;% 
+  count() %&gt;% 
+  pivot_wider(names_from = twitter, values_from = n) %&gt;% 
+  mutate(proportion_twitter_users = Yes /(Yes+No),
+         proportion_notwitter_users = No /(Yes+No))
+
+twitter_bach</code></pre>
+<pre><code>## # A tibble: 2 x 5
+## # Groups:   bachelor_graduate [2]
+##   bachelor_graduate    No   Yes proportion_twitter_use~ proportion_notwitter_us~
+##   &lt;chr&gt;             &lt;int&gt; &lt;int&gt;                   &lt;dbl&gt;                    &lt;dbl&gt;
+## 1 No                  741   141                   0.160                    0.840
+## 2 Yes                 375   114                   0.233                    0.767</code></pre>
+<pre class="r"><code>graduate_ci &lt;- twitter_population %&gt;% 
+  filter(twitter != &quot;NA&quot;, bachelor_graduate != &quot;NA&quot;) %&gt;% 
+  mutate(bachelor_graduate_adj = bachelor_graduate == &quot;Yes&quot;) %&gt;% 
+  group_by(twitter) %&gt;% 
+  summarize(count = n(),
+            proportion_graduate = mean(bachelor_graduate_adj),
+            sd_prop = sd(bachelor_graduate_adj),
+            t_critical_95 = qt(0.975, count-1),
+            lower_bound_95 = proportion_graduate - t_critical_95 * (sd_prop/(count)^0.5),
+            upper_bound_95 = proportion_graduate + t_critical_95 * (sd_prop/(count)^0.5)
+            )
+
+
+graduate_ci%&gt;%
+  
+  select(lower_bound_95,upper_bound_95)</code></pre>
+<pre><code>## # A tibble: 2 x 2
+##   lower_bound_95 upper_bound_95
+##            &lt;dbl&gt;          &lt;dbl&gt;
+## 1          0.308          0.364
+## 2          0.386          0.508</code></pre>
+<pre class="r"><code>ggplot(graduate_ci, 
+       aes(twitter, proportion_graduate, ymax = upper_bound_95, ymin = lower_bound_95))+
+  geom_errorbar(aes(width = 0.2), size = 1) + #other way would be errorbar
+  geom_point(size = 5) +
+  theme_bw() +
+  #xlim(0.2, 0.8) +
+  labs(title = &quot;Confidence intervals for &#39;bachelor_graduate&#39; proportions do not overlap&quot;,
+       subtitle = &quot;CI for proportion of twitter users that are either graduate or bachelor&quot;,
+       x=&quot;Twitter user: (Yes/No)&quot;, y= &quot;Proportion of bachelors and graduates&quot;) +
+  scale_y_continuous(labels = scales::percent) +
+  geom_rect(aes(xmin = 0, xmax = 3, ymin = graduate_ci$upper_bound_95[1], ymax=graduate_ci$lower_bound_95[2]), fill = &quot;red&quot;, alpha = 0.1, size=0.1) +
+  NULL</code></pre>
+<p><img src="/projects/project3/GSS_files/figure-html/unnamed-chunk-8-1.png" width="648" style="display: block; margin: auto;" /></p>
+<p>We observe that the two confidence intervals do not overlap. This shows that there is a significant difference in education between twitter users and non-twitter users.</p>
+</div>
+<div id="email-usage" class="section level2">
+<h2>Email usage</h2>
+<p>We estimate the <em>population</em> parameter on time spent on email weekly.</p>
+<p>We create a new variable called <code>email</code> that combines <code>emailhr</code> and <code>emailmin</code> to reports the number of minutes the respondents spend on email weekly, and then summarise it.</p>
+<pre class="r"><code>email_pop &lt;- gss %&gt;% 
+  mutate(email_in_min = as.numeric(hours(emailhr) + minutes(emailmin),&quot;minutes&quot;))
+
+email_pop %&gt;% filter(!is.na(email_in_min)) %&gt;% 
+  summarize(mean = mean(email_in_min), median = median(email_in_min))</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##    mean median
+##   &lt;dbl&gt;  &lt;dbl&gt;
+## 1  417.    120</code></pre>
+<p>We visualise the distribution of this new variable.</p>
+<pre class="r"><code>email_pop %&gt;% 
+  filter(!is.na(email_in_min)) %&gt;% 
+  summarize(count = n(),
+            mean_email_time = mean(email_in_min, na.rm = TRUE),
+            median_email_time = median(email_in_min, na.rm = TRUE))</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   count mean_email_time median_email_time
+##   &lt;int&gt;           &lt;dbl&gt;             &lt;dbl&gt;
+## 1  1649            417.               120</code></pre>
+<p>We create a density plot to visualise it.</p>
+<pre class="r"><code>ggplot(email_pop, aes(x = email_in_min))+
+  geom_density(fill = &quot;grey&quot;) +
+  theme_bw()+
+  geom_vline(aes(xintercept = mean(email_pop$email_in_min, na.rm = TRUE), color=&quot;mean&quot;), size = 1, linetype = 2) +
+  geom_vline(aes(xintercept = median(email_pop$email_in_min, na.rm = TRUE), color=&quot;median&quot;), size = 1, linetype = 2) +
+  scale_color_manual(name = &quot;statistics&quot;, values = c(mean = &quot;blue&quot;, median = &quot;red&quot;)) +
+  labs(title = &quot;Density of the answers and few outliers make the disrtibution heavily right-skewed&quot;,
+       subtitle = &quot;Density plot for amount of minutes respondents spent on email&quot;,
+       x = &quot;Time spent on emails (min)&quot;,
+       y = &quot;Density&quot;) + 
+  geom_text(mapping = aes(x = mean(email_pop$email_in_min, na.rm = TRUE),
+                          y = 0,
+                          label = round(mean(email_pop$email_in_min, na.rm = TRUE),0), 
+                          hjust = 0, vjust = -0.5, angle=90),colour=&quot;blue&quot;) +
+  geom_text(mapping = aes(x = median(email_pop$email_in_min, na.rm = TRUE),
+                          y = 0,
+                          label = round(median(email_pop$email_in_min, na.rm = TRUE),0), 
+                          hjust = 0, vjust = -0.5, angle=90),colour=&quot;red&quot;) +
+  
+  #scale_x_log10() +
+  NULL</code></pre>
+<p><img src="/projects/project3/GSS_files/figure-html/unnamed-chunk-11-1.png" width="648" style="display: block; margin: auto;" />
+We see that the median is a better choice in this situation while the distribution is skewed. The median is more robust against outliers than the mean.</p>
+<p>We use bootstrapping method to find the 95% confidence interval for the mean amount of time Americans spend on email weekly.</p>
+<pre class="r"><code>library(infer)
+
+set.seed(1234)
+
+point_estimate = mean(email_pop$email_in_min, na.rm = TRUE)
+
+email_pop_ci &lt;- email_pop %&gt;% 
+  specify(formula = email_in_min ~ NULL) %&gt;% 
+  generate(reps = 1000) %&gt;% 
+  calculate(stat = &quot;mean&quot;) %&gt;% 
+  get_ci(type = &quot;se&quot;, point_estimate = point_estimate) %&gt;% 
+  mutate(point_estimate = point_estimate)
+  
+
+email_pop_ci %&gt;% 
+  mutate(lower_ci = hms::as.hms(lower_ci),
+         upper_ci = hms::as.hms(upper_ci),
+         point_estimate = hms::as.hms(point_estimate)
+         )</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   lower_ci      upper_ci      point_estimate
+##   &lt;time&gt;        &lt;time&gt;        &lt;time&gt;        
+## 1 06&#39;23.246734&quot; 07&#39;30.437923&quot; 06&#39;56.842329&quot;</code></pre>
+<p>We conclude that the 95% confidence interval goes from 6 hours and 23 minutes up to 7 hours and 30 minutes. This means that we can be 95% percent sure that our interval includes the true population mean.</p>
+<p>For instance, if we were to increase our confidence to 99%, we can expect wider confidence interval. If the range of our interval increases, we are more likely to capture the true population mean within our interval.</p>
+</div>
+</div>
+
+                        </div>
+                    </section>
+            <!-- Disqus Inject -->
+                
+            </div>
+            
+        <!-- Footer -->
+            
+                <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <ul class="icons">
+                
+                    <li><a href="https://www.facebook.com/alex.pracht.3" class="icon alt fa-facebook" target="_blank"><span class="label">Facebook</span></a></li>
+                
+                    <li><a href="https://www.instagram.com/alexprac" class="icon alt fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+                
+                    <li><a href="https://www.github.com/AlexanderPracht" class="icon alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                
+                    <li><a href="https://www.linkedin.com/in/alexander-pracht-871233151/" class="icon alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+                
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Alexander Pracht 2020</li>
+                
+                <li>Design:  <a href="https://www.html5up.net">HTML5 UP</a></li>
+                
+            </ul>
+        </div>
+    </footer>
+
+            
+        </div>
+
+    <!-- Scripts -->
+        <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+
+    
+
+    <!-- Main JS -->
+    <script src="/js/main.js"></script>
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-180625706-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+    
+
+    </body>
+</html>

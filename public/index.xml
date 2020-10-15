@@ -6,7 +6,37 @@
     <description>Recent content on Portfolio website for Alex Pracht</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Oct 2017 22:42:51 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 15 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>General Social Survey</title>
+      <link>/projects/project3/gss/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/project3/gss/</guid>
+      <description>General Social Survey (GSS)The General Social Survey (GSS) gathers data on American society in order to monitor and explain trends in attitudes, behaviours, and attributes. Many trends have been tracked for decades, so one can see the evolution of attitudes, etc in American Society.
+In this assignment we analyze data from the 2016 GSS sample data, using it to estimate values of population parameters of interest about US adults.</description>
+    </item>
+    
+    <item>
+      <title>Session 4: Homework 2</title>
+      <link>/projects/project2/weatheranomalies/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/project2/weatheranomalies/</guid>
+      <description>Climate change and temperature anomaliesIf we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies. The tabular data of temperature anomalies can be found here
+To define temperature anomalies you need to have a reference, or base, period which NASA clearly states that it is the period between 1951-1980.</description>
+    </item>
+    
+    <item>
+      <title>Yield Curve Inversion</title>
+      <link>/projects/project1/yieldcurve/</link>
+      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/project1/yieldcurve/</guid>
+      <description>What Yiel Curves Can Predict…Yield curves of US treasuries show the different yields for different maturity dates.We looked at US data and used the FRED database. Although we have the yields for maturities between 3 months and 30 years, we would like to focus on only two of them:1. 3-Month Treasury Bill2. 10-Year Treasury Rate
+# Get a list of FRED codes for US rates and US yield curve; choose monthly frequency# to see, eg.</description>
+    </item>
+    
     <item>
       <title>Aliquam</title>
       <link>/blogs/aliquam/</link>
@@ -41,6 +71,18 @@
       
       <guid>/blogs/ipsum/</guid>
       <description>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</description>
+    </item>
+    
+    <item>
+      <title>FlightMap</title>
+      <link>/projects/project4/flightmap6/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/project4/flightmap6/</guid>
+      <description>On this page I would like to analyse the current flight schedule of Lufthansa Cargo. I downloaded the data directly from the Lufthansa Cargo Website.
+I wanted to check my hypothesis that Lufthansa Cargo offers few flights right now, but will expand their flight schedule from November on.
+For visualisation I looked at the following webpage.However some of the functions on this page are already outdated.
+library(ggplot2)library(maps)library(rgeos)## Loading required package: sp## rgeos version: 0.</description>
     </item>
     
   </channel>
