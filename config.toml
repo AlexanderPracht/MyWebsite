@@ -98,7 +98,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Yield Curve Inversion"
       subtitle = "What US treasuries can predict"
-      image = "pic02.jpg"
+      image = "money.jpg"
       url = "projects/project1/yieldcurve"
 
     [[params.tiles.showcase]]
