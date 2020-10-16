@@ -24,7 +24,7 @@ In this assignment we analyze data from the 2016 GSS sample data, using it to es
       
       <guid>https://alex-pracht.netlify.app/projects/project2/weatheranomalies/</guid>
       <description>Climate change and temperature anomaliesNot everyone understands that the world is heating up…
-Click here to see this post on twitter.
+knitr::include_graphics(&amp;quot;/img/twitter_trump.jpg&amp;quot;, error = FALSE)Click here to see this post on twitter.
 But we will see in the following analysis that there is a trend of global warming…
 If we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies.</description>
     </item>
