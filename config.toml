@@ -42,7 +42,7 @@ disqusShortname = ""
     menu = "Menu"
     # Optional logo as brand stored in img/
     logo = "LBS.png"
-      
+
     [[params.navigation.links]]
       name = "Yield Curve Inversion"
       url = "projects/project1/yieldcurve"
@@ -70,6 +70,7 @@ disqusShortname = ""
     [[params.navigation.button2]]
       name = "Home"
       url = "#"
+
 
 
   # Banner section
