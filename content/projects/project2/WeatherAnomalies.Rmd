@@ -50,6 +50,7 @@ Not everyone understands that the world is heating up...
 ```{r trum_twiiter}
 knitr::include_graphics("/img/twitter_trump.jpg", error = FALSE)
 ```
+Click [here](https://twitter.com/realdonaldtrump/status/265895292191248385?lang=en) to see this post on twitter.
 
 But we will see in the following analysis that there is a trend of global warming...
 

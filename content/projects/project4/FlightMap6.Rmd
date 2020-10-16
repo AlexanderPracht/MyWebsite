@@ -8,8 +8,9 @@ On this page I would like to analyse the current flight schedule of Lufthansa Ca
 
 I wanted to check my hypothesis that Lufthansa Cargo offers few flights right now, but will expand their flight schedule from November on.
 
-For visualisation I looked at the following [webpage](https://weiminwang.blog/2015/06/24/use-r-to-plot-flight-routes-on-a-fancy-world-background/).
-However some of the functions on this page are already outdated.
+For visualization I looked at the following [webpage](https://weiminwang.blog/2015/06/24/use-r-to-plot-flight-routes-on-a-fancy-world-background/).
+However some of the functions on this page are already outdated. But I enjoyed putting my time into this small analysis.
+
 
 ```{r, plotting, fig.width=15}
 library(ggplot2)
@@ -104,7 +105,7 @@ fill="#090D2A", alpha=0.8, data=worldmap))
 
 ## Lufthansa Cargo Flight Schedule (15th October 2020)
 
-```{r, plottingOct, fig.width=15}
+```{r, plottingOct, fig.width=15, fig.height= 10}
 # October
 ggplot() +
 wrld +
@@ -117,16 +118,18 @@ legend.justification = c(0,1),
 legend.background = element_rect(colour = NA, fill = NA),
 legend.key = element_rect(colour = NA, fill = NA, size = 10),
 legend.text = element_text(colour='white', size = 20),
-plot.title = element_text(size =22)) +
+legend.title = element_text(colour="white", size = 20),
+plot.title = element_text(size =22),
+panel.background = element_rect(fill = NA)) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flights Lufthansa Cargo October"),color="white")+
-  labs(title = "Fewer flight are planned for October at Lufthansa Cargo", y="Latitude", x="Longitude")
+  labs(title = "Fewer flight are planned for October at Lufthansa Cargo", y="Latitude", x="Longitude", caption = "Lufthansa Cargo Flight Plan")
 ```
 
 ## Lufthansa Cargo Flight Schedule (November 2020)
 
-```{r, plottingNov, fig.width=15}
+```{r, plottingNov, fig.width=15, fig.height=10}
 # November
 ggplot() +
 wrld +
@@ -138,13 +141,15 @@ theme(legend.position = c(0,0.4),
 legend.justification = c(0,1),
 legend.background = element_rect(colour = NA, fill = NA),
 legend.key = element_rect(colour = NA, fill = NA, size = 10),
+legend.title = element_text(colour="white", size = 20),
 legend.text = element_text(colour='white', size = 20),
-plot.title = element_text(size =22)
+plot.title = element_text(size =22),
+panel.background = element_rect(fill = NA)
 ) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flights Lufthansa Cargo November"),color="white")+
-  labs(title = "More routes are planned for November at Lufthansa Cargo", y="Latitude", x="Longitude")
+  labs(title = "More routes are planned for November at Lufthansa Cargo", y="Latitude", x="Longitude", caption = "Lufthansa Cargo Flight Plan")
 
 ```
 

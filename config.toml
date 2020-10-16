@@ -129,7 +129,7 @@ disqusShortname = ""
   [params.two]
     enable = true
     title = "My data analysis using R"
-    subtitle = "During my studies at London Business School I developed my skills in data analysis and coding in R. \nTo see some analyses click on the link below."
+    subtitle = "During my studies at London Business School I developed my skills in data analysis and coding in R."
     buttonText = "Find out more about the MFA @LBS click here "
     url = "https://www.london.edu/masters-degrees/masters-in-financial-analysis"
 

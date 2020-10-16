@@ -24,8 +24,9 @@ In this assignment we analyze data from the 2016 GSS sample data, using it to es
       
       <guid>/projects/project2/weatheranomalies/</guid>
       <description>Climate change and temperature anomaliesNot everyone understands that the world is heating up…
-knitr::include_graphics(&amp;quot;/img/twitter_trump.jpg&amp;quot;, error = FALSE)But we will see in the following analysis that there is a trend of global warming…
-If we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies. The tabular data of temperature anomalies can be found here</description>
+knitr::include_graphics(&amp;quot;/img/twitter_trump.jpg&amp;quot;, error = FALSE)Click here to see this post on twitter.
+But we will see in the following analysis that there is a trend of global warming…
+If we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies.</description>
     </item>
     
     <item>
@@ -36,8 +37,7 @@ If we wanted to study climate change, we can find data on the Combined Land-Surf
       <guid>/projects/project4/flightmap6/</guid>
       <description>On this page I would like to analyse the current flight schedule of Lufthansa Cargo. I downloaded the data directly from the Lufthansa Cargo Website.
 I wanted to check my hypothesis that Lufthansa Cargo offers few flights right now, but will expand their flight schedule from November on.
-For visualisation I looked at the following webpage.However some of the functions on this page are already outdated.
-library(ggplot2)library(maps)library(rgeos)## Loading required package: sp## rgeos version: 0.</description>
+For visualization I looked at the following webpage.However some of the functions on this page are already outdated. But I enjoyed putting my time into this small analysis.</description>
     </item>
     
     <item>
