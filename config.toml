@@ -116,7 +116,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Download Alex's CV"
       subtitle = "CV Alexander Pracht 2020"
-      image = ""
+      image = "projects/CV/Alexander Pracht CV 2020.pdf"
       url = "/projects/CV/Alexander Pracht CV 2020.pdf"
 
   [params.blog]
@@ -134,6 +134,7 @@ disqusShortname = ""
     To see some analyses click on the link below."""
     buttonText = "Download Alex CV"
     href = "projects/CV/Alexander Pracht CV 2020.pdf"
+    image = "CV_AP.jpg"
 
 
   # Contact section
