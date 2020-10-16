@@ -60,8 +60,6 @@
             
                 <li><a href="/">Home</a></li>
             
-                <li><a href="/projects">All Projects</a></li>
-            
                 <li><a href="/projects/project1/yieldcurve">Yield Curve Inversion</a></li>
             
                 <li><a href="/projects/project2/weatheranomalies">Weather Anomalies</a></li>
@@ -270,7 +268,8 @@ legend.key = element_rect(colour = NA, fill = NA, size = 10),
 legend.text = element_text(colour=&#39;white&#39;, size = 20)) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste(&quot;Flights Lufthansa Cargo November&quot;),color=&quot;white&quot;)</code></pre>
+label=paste(&quot;Flights Lufthansa Cargo November&quot;),color=&quot;white&quot;)+
+  labs(title = &quot;More routes are planned for November at Lufthansa Cargo&quot;, legend = &quot;Number of flights per route&quot;)</code></pre>
 <pre><code>## Warning: Removed 10 rows containing missing values (geom_segment).</code></pre>
 <p><img src="/projects/project4/FlightMap6_files/figure-html/plottingNov-1.png" width="1440" /></p>
 <p>What we can see from these graphs is that the flight schedule in October has less flights than the one for November. This means that Lufthansa Cargo believes they can increase their flights and it network, offering more flights to more places.</p>

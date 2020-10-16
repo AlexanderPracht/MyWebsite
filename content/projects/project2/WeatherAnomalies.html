@@ -1,7 +1,7 @@
 ---
-title: "Session 4: Homework 2"
+title: "Weather Anomalies"
 author: "Alexander Pracht"
-date: "2020-10-15"
+date: "2020-10-16"
 output:
   html_document:
     theme: flatly
@@ -16,6 +16,10 @@ output:
 
 <div id="climate-change-and-temperature-anomalies" class="section level1">
 <h1>Climate change and temperature anomalies</h1>
+<p>Not everyone understands that the world is heating up…</p>
+<pre class="r"><code>knitr::include_graphics(&quot;/img/twitter_trump.jpg&quot;, error = FALSE)</code></pre>
+<p><img src="/img/twitter_trump.jpg" style="display: block; margin: auto;" /></p>
+<p>But we will see in the following analysis that there is a trend of global warming…</p>
 <p>If we wanted to study climate change, we can find data on the <em>Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies</em> in the Northern Hemisphere at <a href="https://data.giss.nasa.gov/gistemp">NASA’s Goddard Institute for Space Studies</a>. The <a href="https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.txt">tabular data of temperature anomalies can be found here</a></p>
 <p>To define temperature anomalies you need to have a reference, or base, period which NASA clearly states that it is the period between 1951-1980.</p>
 <p>Firstly, we need to load the file:</p>

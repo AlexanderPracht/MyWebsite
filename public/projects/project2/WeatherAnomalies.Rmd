@@ -1,5 +1,5 @@
 ---
-title: "Session 4: Homework 2"
+title: "Weather Anomalies"
 author: "Alexander Pracht"
 date: "`r Sys.Date()`"
 output:
@@ -11,7 +11,6 @@ output:
     toc_float: yes
     code_folding: show
 ---
-
 
 ```{r, setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -41,9 +40,16 @@ library(janitor)
 library(httr)
 library(readxl)
 library(vroom)
+library(knitr)
 ```
 
+Not everyone understands that the world is heating up...
 
+```{r trum_twiiter}
+knitr::include_graphics("/img/twitter_trump.jpg", error = FALSE)
+```
+
+But we will see in the following analysis that there is a trend of global warming...
 
 # Climate change and temperature anomalies 
 

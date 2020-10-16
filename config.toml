@@ -48,10 +48,6 @@ disqusShortname = ""
       url = "#"
       
     [[params.navigation.links]]
-      name = "All Projects"
-      url = "projects"
-      
-    [[params.navigation.links]]
       name = "Yield Curve Inversion"
       url = "projects/project1/yieldcurve"
 

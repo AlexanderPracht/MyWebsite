@@ -6,7 +6,18 @@
     <description>Recent content in Projects on Portfolio website for Alex Pracht</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 15 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 16 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="/projects/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Weather Anomalies</title>
+      <link>/projects/project2/weatheranomalies/</link>
+      <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/project2/weatheranomalies/</guid>
+      <description>Not everyone understands that the world is heating up…
+knitr::include_graphics(&amp;quot;/img/twitter_trump.jpg&amp;quot;, error = FALSE)But we will see in the following analysis that there is a trend of global warming…
+Climate change and temperature anomaliesIf we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies. The tabular data of temperature anomalies can be found here</description>
+    </item>
+    
     <item>
       <title>General Social Survey</title>
       <link>/projects/project3/gss/</link>
@@ -15,16 +26,6 @@
       <guid>/projects/project3/gss/</guid>
       <description>General Social Survey (GSS)The General Social Survey (GSS) gathers data on American society in order to monitor and explain trends in attitudes, behaviours, and attributes. Many trends have been tracked for decades, so one can see the evolution of attitudes, etc in American Society.
 In this assignment we analyze data from the 2016 GSS sample data, using it to estimate values of population parameters of interest about US adults.</description>
-    </item>
-    
-    <item>
-      <title>Session 4: Homework 2</title>
-      <link>/projects/project2/weatheranomalies/</link>
-      <pubDate>Thu, 15 Oct 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/projects/project2/weatheranomalies/</guid>
-      <description>Climate change and temperature anomaliesIf we wanted to study climate change, we can find data on the Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies in the Northern Hemisphere at NASA’s Goddard Institute for Space Studies. The tabular data of temperature anomalies can be found here
-To define temperature anomalies you need to have a reference, or base, period which NASA clearly states that it is the period between 1951-1980.</description>
     </item>
     
     <item>

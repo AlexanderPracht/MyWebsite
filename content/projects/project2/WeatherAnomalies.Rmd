@@ -1,5 +1,5 @@
 ---
-title: "Session 4: Homework 2"
+title: "Weather Anomalies"
 author: "Alexander Pracht"
 date: "`r Sys.Date()`"
 output:
@@ -11,7 +11,6 @@ output:
     toc_float: yes
     code_folding: show
 ---
-
 
 ```{r, setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -41,12 +40,18 @@ library(janitor)
 library(httr)
 library(readxl)
 library(vroom)
+library(knitr)
 ```
 
+# Climate change and temperature anomalies
 
+Not everyone understands that the world is heating up...
 
-# Climate change and temperature anomalies 
+```{r trum_twiiter}
+knitr::include_graphics("/img/twitter_trump.jpg", error = FALSE)
+```
 
+But we will see in the following analysis that there is a trend of global warming...
 
 If we wanted to study climate change, we can find data on the *Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies* in the Northern Hemisphere at [NASA's Goddard Institute for Space Studies](https://data.giss.nasa.gov/gistemp). The [tabular data of temperature anomalies can be found here](https://data.giss.nasa.gov/gistemp/tabledata_v3/NH.Ts+dSST.txt)
 
