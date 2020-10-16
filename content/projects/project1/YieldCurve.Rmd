@@ -228,6 +228,4 @@ ggplot(plot4, aes(x=date, y=diff))+
 ```
 
 This graph shows us that the yield curve actually flattens before recessions. Therefore, a flatten of the yield curve can predict an upcoming recession.
-Furthermore, since 1999 the 3-month Bill yield more than a 10-year-rate in the following years:
-1. 2000
-2. 2006-2007
+Furthermore, since 1999 the 3-month Bill yield more than a 10-year-rate in the following years: 2000, 2006-2007
