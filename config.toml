@@ -122,6 +122,7 @@ disqusShortname = ""
     image = "frankfurt.jpg"
     url = "/blogs/blog1"
     
+    
     # All blogs defined in their own files. You can find example blogs
     # at 'exampleSite/content/blogs'. Copy the 'blogs' folder into the 'content' directory
     # at the root of this Hugo site.
