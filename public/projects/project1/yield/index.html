@@ -11,18 +11,18 @@
 	<title>Yield Curve Inversion &middot; Portfolio website for Alex Pracht</title>
 	<!-- Stylesheets -->
 	
-	<link rel="stylesheet" href="/css/main.css"/>
+	<link rel="stylesheet" href="https://alex-pracht.netlify.app/css/main.css"/>
 	
 	
 
 	
 
 	<!-- Custom Fonts -->
-	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://alex-pracht.netlify.app/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	
-	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon_LBS.ico">
-	<link rel="icon" type="image/x-icon" href="/img/favicon_LBS.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="https://alex-pracht.netlify.app/img/favicon_LBS.ico">
+	<link rel="icon" type="image/x-icon" href="https://alex-pracht.netlify.app/img/favicon_LBS.ico">
 	
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,11 +40,11 @@
 
             <!-- Header -->
      <header id="header" class="alt">
-        <a href="/" class="logo">
+        <a href="https://alex-pracht.netlify.app/" class="logo">
             <img src="/img/LBS.png" alt="" width = 50 height = 50/>
         
         </a>
-        <a href="/" class = "logo">
+        <a href="https://alex-pracht.netlify.app/" class = "logo">
            <strong>Alex Pracht</strong> 
            <span>Portfolio website</span> 
         </a>
@@ -58,19 +58,19 @@
     <nav id="menu">
         <ul class="links">
             
-                <li><a href="/projects/project1/yieldcurve">Yield Curve Inversion</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/project1/yieldcurve">Yield Curve Inversion</a></li>
             
-                <li><a href="/projects/project2/weatheranomalies">Weather Anomalies</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/project2/weatheranomalies">Weather Anomalies</a></li>
             
-                <li><a href="/projects/project4/flightmap6">Aviation Case Study</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/project4/flightmap6">Aviation Case Study</a></li>
             
         </ul>
         <ul class="actions vertical">
             
-                <li><a href="/projects/CV/Alexander%20Pracht%20CV%202020.pdf" class="button special fit">Download Alex&#39;s CV</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/CV/Alexander%20Pracht%20CV%202020.pdf" class="button special fit">Download Alex&#39;s CV</a></li>
             
             
-                <li><a href="/" class="button fit">Home</a></li>
+                <li><a href="https://alex-pracht.netlify.app/" class="button fit">Home</a></li>
             
         </ul>
     </nav>
@@ -195,7 +195,7 @@ mylookup %&gt;%
 </tbody>
 </table>
 <pre class="r"><code>df &lt;- tickers %&gt;% tidyquant::tq_get(get=&quot;economic.data&quot;, 
-                   from=&quot;1960-01-01&quot;)   # start from January 1960
+                                    from=&quot;1960-01-01&quot;)   # start from January 1960
 
 glimpse(df)</code></pre>
 <pre><code>## Rows: 6,774
@@ -229,7 +229,7 @@ ggplot(yield_curve, aes(x=date, y=price, colour = var))+
 plot2 &lt;- yield_curve%&gt;%
   mutate(year = year(date), 
          month = month(date))%&gt;%
-filter(year &gt;= 1999)
+  filter(year &gt;= 1999)
 
 ggplot(plot2, aes(x=maturity, 
                   y=price, 
@@ -267,23 +267,30 @@ ggplot(plot3, aes(x=date, y=price, colour= var))+
 recessions &lt;- tibble(
   from = c(&quot;1948-11-01&quot;, &quot;1953-07-01&quot;, &quot;1957-08-01&quot;, &quot;1960-04-01&quot;, &quot;1969-12-01&quot;, &quot;1973-11-01&quot;, &quot;1980-01-01&quot;,&quot;1981-07-01&quot;, &quot;1990-07-01&quot;, &quot;2001-03-01&quot;, &quot;2007-12-01&quot;),  
   to = c(&quot;1949-10-01&quot;, &quot;1954-05-01&quot;, &quot;1958-04-01&quot;, &quot;1961-02-01&quot;, &quot;1970-11-01&quot;, &quot;1975-03-01&quot;, &quot;1980-07-01&quot;, &quot;1982-11-01&quot;, &quot;1991-03-01&quot;, &quot;2001-11-01&quot;, &quot;2009-06-01&quot;) 
-  )  %&gt;% 
+)  %&gt;% 
   mutate(From = ymd(from), 
          To=ymd(to),
          duration_days = To-From)
 
 recessions &lt;- recessions%&gt;%
   filter(year(from) &gt;=1960)</code></pre>
-<pre class="r"><code>plot4 &lt;- yield_curve%&gt;%
+<pre class="r"><code>plot4 &lt;- yield_curve %&gt;% 
   select(date, symbol, price)%&gt;%
   pivot_wider(names_from = symbol, values_from = price)%&gt;%
   mutate(diff = GS10 - TB3MS)
-  
+
 ggplot(plot4, aes(x=date, y=diff))+
   geom_line()+
-  geom_hline(aes(yintercept=0),color=&quot;black&quot;)+
-  geom_ribbon(aes(ymin=0,ymax=ifelse(diff&gt;0, diff,0)),fill=&quot;blue&quot;,alpha=0.2)+
-  geom_ribbon(aes(ymin=ifelse(diff&lt;0, diff,0),ymax=0),fill=&quot;red&quot;,alpha=0.2)  +
+  geom_hline(aes(yintercept=0),
+             color=&quot;black&quot;)+
+  geom_ribbon(aes(ymin=0,
+                  ymax=ifelse(diff&gt;0, diff, 0)), 
+              fill=&quot;blue&quot;, 
+              alpha=0.2)+
+  geom_ribbon(aes(ymin=ifelse(diff&lt;0, diff, 0), 
+                  ymax=0), 
+              fill=&quot;red&quot;, 
+              alpha=0.2)  +
   geom_rect(data=recessions, 
             inherit.aes = FALSE, 
             aes(ymin=-Inf, 
@@ -293,7 +300,8 @@ ggplot(plot4, aes(x=date, y=diff))+
             fill = &quot;black&quot;, 
             alpha = 0.2)+
   theme_bw()+
-  scale_x_date(date_breaks=&quot;2 years&quot;,date_labels=&quot;%Y&quot;)+
+  scale_x_date(date_breaks=&quot;2 years&quot;,
+               date_labels=&quot;%Y&quot;)+
   labs(title = &quot;Yield Curve Inversion: 10-year minus3-month U.S. Treasury rates&quot;,
        subtitle = &quot;Difference in % points, monthly averages.\nShaded areas correspond to recessions&quot;,
        caption = &quot;Source: St. Louis Federal Reserve Economic Database (FRED)&quot;,
@@ -346,16 +354,16 @@ Furthermore, since 1999 the 3-month Bill yield more than a 10-year-rate in the f
     <!-- Scripts -->
         <!-- Scripts -->
     <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.scrolly.min.js"></script>
-    <script src="/js/jquery.scrollex.min.js"></script>
-    <script src="/js/skel.min.js"></script>
-    <script src="/js/util.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/jquery.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/jquery.scrolly.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/jquery.scrollex.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/skel.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/util.js"></script>
 
     
 
     <!-- Main JS -->
-    <script src="/js/main.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/main.js"></script>
 
     
 <script type="application/javascript">

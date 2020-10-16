@@ -11,18 +11,18 @@
 	<title>FlightMap &middot; Portfolio website for Alex Pracht</title>
 	<!-- Stylesheets -->
 	
-	<link rel="stylesheet" href="/css/main.css"/>
+	<link rel="stylesheet" href="https://alex-pracht.netlify.app/css/main.css"/>
 	
 	
 
 	
 
 	<!-- Custom Fonts -->
-	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://alex-pracht.netlify.app/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 	
-	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon_LBS.ico">
-	<link rel="icon" type="image/x-icon" href="/img/favicon_LBS.ico">
+	<link rel="shortcut icon" type="image/x-icon" href="https://alex-pracht.netlify.app/img/favicon_LBS.ico">
+	<link rel="icon" type="image/x-icon" href="https://alex-pracht.netlify.app/img/favicon_LBS.ico">
 	
 
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,11 +40,11 @@
 
             <!-- Header -->
      <header id="header" class="alt">
-        <a href="/" class="logo">
+        <a href="https://alex-pracht.netlify.app/" class="logo">
             <img src="/img/LBS.png" alt="" width = 50 height = 50/>
         
         </a>
-        <a href="/" class = "logo">
+        <a href="https://alex-pracht.netlify.app/" class = "logo">
            <strong>Alex Pracht</strong> 
            <span>Portfolio website</span> 
         </a>
@@ -58,19 +58,19 @@
     <nav id="menu">
         <ul class="links">
             
-                <li><a href="/projects/project1/yieldcurve">Yield Curve Inversion</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/project1/yieldcurve">Yield Curve Inversion</a></li>
             
-                <li><a href="/projects/project2/weatheranomalies">Weather Anomalies</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/project2/weatheranomalies">Weather Anomalies</a></li>
             
-                <li><a href="/projects/project4/flightmap6">Aviation Case Study</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/project4/flightmap6">Aviation Case Study</a></li>
             
         </ul>
         <ul class="actions vertical">
             
-                <li><a href="/projects/CV/Alexander%20Pracht%20CV%202020.pdf" class="button special fit">Download Alex&#39;s CV</a></li>
+                <li><a href="https://alex-pracht.netlify.app/projects/CV/Alexander%20Pracht%20CV%202020.pdf" class="button special fit">Download Alex&#39;s CV</a></li>
             
             
-                <li><a href="/" class="button fit">Home</a></li>
+                <li><a href="https://alex-pracht.netlify.app/" class="button fit">Home</a></li>
             
         </ul>
     </nav>
@@ -88,11 +88,12 @@
                             
 
 
-<p>On this page I would like to analyse the current flight schedule of Lufthansa Cargo. I downloaded the data directly from the <a href="https://lufthansa-cargo.com/network/schedule-routings">Lufthansa Cargo Website</a>.</p>
+<p>On this page I would like to analyse the current flight schedule of Lufthansa Cargo. I downloaded the data directly from the <a href="https://lufthansa-cargo.com/network/schedule-routings">Lufthansa Cargo Website</a>. I chose Lufthansa Cargo because it is a German company and their data is publicly available on their webpage. It would be interesting to conduct this study also for other airlines in order to determine which airlines are more confident compared to others about the future in the light of Corona.</p>
 <p>I wanted to check my hypothesis that Lufthansa Cargo offers few flights right now, but will expand their flight schedule from November on.</p>
 <p>For visualization I looked at the following <a href="https://weiminwang.blog/2015/06/24/use-r-to-plot-flight-routes-on-a-fancy-world-background/">webpage</a>.
 However some of the functions on this page are already outdated. But I enjoyed putting my time into this small analysis.</p>
-<pre class="r"><code>library(ggplot2)
+<pre class="r"><code># loading libraries
+library(ggplot2)
 library(maps)
 library(rgeos)</code></pre>
 <pre><code>## Loading required package: sp</code></pre>
@@ -145,15 +146,7 @@ library(plyr)</code></pre>
 <pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
 ## 
 ##     between, first, last</code></pre>
-<pre class="r"><code>count.dups &lt;- function(DF){
-  DT &lt;- data.table(DF)
-  DT[,.N, by = names(DT)]
-}
-
-fortify.SpatialLinesDataFrame = function(model, data, ...){
-ldply(model@lines, fortify)
-}
-# importing the data from the csv file
+<pre class="r"><code># importing the data from the csv file
 lh_data = read.csv(&quot;data/LHcargo_FlightScheduleALL.csv&quot;, header=TRUE)
 
 # selecting relevant columns and format dates
@@ -174,7 +167,7 @@ lh_data_sliced &lt;-lh_data %&gt;%
 # filter for the current flight schedule as of 15th October 2020
 lh_15_10 &lt;- lh_data_sliced%&gt;%
   filter(Start_Op &lt;= &quot;2020-10-15&quot;)%&gt;%
-    group_by(DEP,ARR)%&gt;%
+  group_by(DEP,ARR)%&gt;%
   summarise(count = sum(sum))</code></pre>
 <pre><code>## `summarise()` regrouping output by &#39;DEP&#39; (override with `.groups` argument)</code></pre>
 <pre class="r"><code># filter for flight schedule as of November 2020
@@ -203,13 +196,7 @@ schedule_final_10 &lt;- left_join(lh_15_10, airports_arr)</code></pre>
 <pre><code>## Joining, by = &quot;ARR&quot;</code></pre>
 <pre class="r"><code>schedule_final_11 &lt;- left_join(schedule_final_11, airports_dep)</code></pre>
 <pre><code>## Joining, by = &quot;DEP&quot;</code></pre>
-<pre class="r"><code># delete duplicates to only show 
-count_final_10 &lt;- count.dups(schedule_final_10)
-count_final_10 &lt;- na.omit(count_final_10)
-count_final_11 &lt;- count.dups(schedule_final_11)
-count_final_11 &lt;- na.omit(count_final_11)
- 
-# get worldmap
+<pre class="r"><code># get worldmap
 worldmap = map_data (&quot;world&quot;)
 
 # set city lights
@@ -221,64 +208,69 @@ urbanareasin &lt;- rgdal::readOGR(&quot;data/ne_10m_urban_areas/ne_10m_urban_are
 ## It has 4 fields
 ## Integer64 fields read as strings:  scalerank</code></pre>
 <pre class="r"><code>urb &lt;- c(geom_polygon(aes(long, lat, group = group),
-size = 0.3,
-color = &quot;#ffffff&quot;,
-fill = &quot;#ffffff&quot;,
-alpha = 1,
-data = urbanareasin))</code></pre>
+                      size = 0.3,
+                      color = &quot;#ffffff&quot;,
+                      fill = &quot;#ffffff&quot;,
+                      alpha = 1,
+                      data = urbanareasin))</code></pre>
 <pre><code>## Regions defined for each Polygons</code></pre>
 <pre class="r"><code># wrld layer
 wrld&lt;-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= &quot;#090D2A&quot;,
-fill=&quot;#090D2A&quot;, alpha=0.8, data=worldmap))</code></pre>
+                     fill=&quot;#090D2A&quot;, alpha=0.8, data=worldmap))</code></pre>
 <div id="lufthansa-cargo-flight-schedule-15th-october-2020" class="section level2">
 <h2>Lufthansa Cargo Flight Schedule (15th October 2020)</h2>
-<pre class="r"><code># October
+<pre class="r"><code># October plotting
 ggplot() +
-wrld +
-urb+
-geom_segment(data= schedule_final_10, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
-  scale_color_gradientn(colours = rainbow(20), limits = c(0,166), name =&quot;Number of flights per route&quot;)+
-theme(panel.background = element_rect(fill=&#39;#00001C&#39;,colour=&#39;#00001C&#39;), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-theme(legend.position = c(0,0.4),
-legend.justification = c(0,1),
-legend.background = element_rect(colour = NA, fill = NA),
-legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.text = element_text(colour=&#39;white&#39;, size = 20),
-legend.title = element_text(colour=&quot;white&quot;, size = 20),
-plot.title = element_text(size =22),
-panel.background = element_rect(fill = NA)) +
-#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
-annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste(&quot;Flights Lufthansa Cargo October&quot;),color=&quot;white&quot;)+
+  wrld +
+  urb+
+  geom_segment(data= schedule_final_10, 
+               aes(y=Lat_Dep,
+                   x=Long_Dep, 
+                   yend=Lat_Arr, 
+                   xend=Long_Arr, 
+                   colour=count), 
+               alpha = 0.3)+ 
+  scale_color_gradientn(colours = rainbow(20), 
+                        limits = c(0,166), 
+                        name =&quot;Number of flights per route&quot;)+
+  theme(panel.background = element_rect(fill=&#39;#00001C&#39;,
+                                        colour=&#39;#00001C&#39;),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(legend.position = c(0,0.4),
+        legend.justification = c(0,1),
+        legend.background = element_rect(colour = NA, fill = NA),
+        legend.key = element_rect(colour = NA, fill = NA, size = 10),
+        legend.text = element_text(colour=&#39;white&#39;, size = 20),
+        legend.title = element_text(colour=&quot;white&quot;, size = 20),
+        plot.title = element_text(size =22)) +
+  annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
+           label=paste(&quot;Flights Lufthansa Cargo October&quot;),color=&quot;white&quot;)+
   labs(title = &quot;Fewer flight are planned for October at Lufthansa Cargo&quot;, y=&quot;Latitude&quot;, x=&quot;Longitude&quot;, caption = &quot;Lufthansa Cargo Flight Plan&quot;)</code></pre>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_segment).</code></pre>
 <p><img src="/projects/project4/FlightMap6_files/figure-html/plottingOct-1.png" width="1440" /></p>
 </div>
 <div id="lufthansa-cargo-flight-schedule-november-2020" class="section level2">
 <h2>Lufthansa Cargo Flight Schedule (November 2020)</h2>
-<pre class="r"><code># November
+<pre class="r"><code># November plotting
 ggplot() +
-wrld +
-urb+
-geom_segment(data= schedule_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
+  wrld +
+  urb+
+  geom_segment(data= schedule_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
   scale_color_gradientn(colours = rainbow(20), limits = c(0,166), name =&quot;Number of flights per route&quot;)+
-theme(panel.background = element_rect(fill=&#39;#00001C&#39;,colour=&#39;#00001C&#39;), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-theme(legend.position = c(0,0.4),
-legend.justification = c(0,1),
-legend.background = element_rect(colour = NA, fill = NA),
-legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.title = element_text(colour=&quot;white&quot;, size = 20),
-legend.text = element_text(colour=&#39;white&#39;, size = 20),
-plot.title = element_text(size =22),
-panel.background = element_rect(fill = NA)
-) +
-#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
-annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste(&quot;Flights Lufthansa Cargo November&quot;),color=&quot;white&quot;)+
+  theme(panel.background = element_rect(fill=&#39;#00001C&#39;,colour=&#39;#00001C&#39;), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(legend.position = c(0,0.4),
+        legend.justification = c(0,1),
+        legend.background = element_rect(colour = NA, fill = NA),
+        legend.key = element_rect(colour = NA, fill = NA, size = 10),
+        legend.title = element_text(colour=&quot;white&quot;, size = 20),
+        legend.text = element_text(colour=&#39;white&#39;, size = 20),
+        plot.title = element_text(size =22)) +
+  annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
+           label=paste(&quot;Flights Lufthansa Cargo November&quot;),color=&quot;white&quot;)+
   labs(title = &quot;More routes are planned for November at Lufthansa Cargo&quot;, y=&quot;Latitude&quot;, x=&quot;Longitude&quot;, caption = &quot;Lufthansa Cargo Flight Plan&quot;)</code></pre>
 <pre><code>## Warning: Removed 10 rows containing missing values (geom_segment).</code></pre>
 <p><img src="/projects/project4/FlightMap6_files/figure-html/plottingNov-1.png" width="1440" /></p>
-<p>What we can see from these graphs is that the flight schedule in October has less flights than the one for November. This means that Lufthansa Cargo believes they can increase their flights and it network, offering more flights to more places.</p>
+<p>What we can see from these graphs is that the flight schedule in October has less flights than the one for November. This means that Lufthansa Cargo believes they can increase their flights and it network, offering more flights to more places. As the Covid case numbers in this week are rising again, it would be interesting to know whether Lufthansa Cargo is still that confident for their flight schedule for November.</p>
 </div>
 
                         </div>
@@ -320,16 +312,16 @@ label=paste(&quot;Flights Lufthansa Cargo November&quot;),color=&quot;white&quot
     <!-- Scripts -->
         <!-- Scripts -->
     <!-- jQuery -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/jquery.scrolly.min.js"></script>
-    <script src="/js/jquery.scrollex.min.js"></script>
-    <script src="/js/skel.min.js"></script>
-    <script src="/js/util.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/jquery.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/jquery.scrolly.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/jquery.scrollex.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/skel.min.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/util.js"></script>
 
     
 
     <!-- Main JS -->
-    <script src="/js/main.js"></script>
+    <script src="https://alex-pracht.netlify.app/js/main.js"></script>
 
     
 <script type="application/javascript">

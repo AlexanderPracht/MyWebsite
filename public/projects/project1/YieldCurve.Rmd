@@ -92,7 +92,7 @@ mylookup %>%
   knitr::kable()
 
 df <- tickers %>% tidyquant::tq_get(get="economic.data", 
-                   from="1960-01-01")   # start from January 1960
+                                    from="1960-01-01")   # start from January 1960
 
 glimpse(df)
 ```
@@ -133,7 +133,7 @@ library(lubridate)
 plot2 <- yield_curve%>%
   mutate(year = year(date), 
          month = month(date))%>%
-filter(year >= 1999)
+  filter(year >= 1999)
 
 ggplot(plot2, aes(x=maturity, 
                   y=price, 
@@ -180,7 +180,7 @@ ggplot(plot3, aes(x=date, y=price, colour= var))+
 recessions <- tibble(
   from = c("1948-11-01", "1953-07-01", "1957-08-01", "1960-04-01", "1969-12-01", "1973-11-01", "1980-01-01","1981-07-01", "1990-07-01", "2001-03-01", "2007-12-01"),  
   to = c("1949-10-01", "1954-05-01", "1958-04-01", "1961-02-01", "1970-11-01", "1975-03-01", "1980-07-01", "1982-11-01", "1991-03-01", "2001-11-01", "2009-06-01") 
-  )  %>% 
+)  %>% 
   mutate(From = ymd(from), 
          To=ymd(to),
          duration_days = To-From)
@@ -190,16 +190,23 @@ recessions <- recessions%>%
 ```
 
 ```{r , plot4, fig.width=15}
-plot4 <- yield_curve%>%
+plot4 <- yield_curve %>% 
   select(date, symbol, price)%>%
   pivot_wider(names_from = symbol, values_from = price)%>%
   mutate(diff = GS10 - TB3MS)
-  
+
 ggplot(plot4, aes(x=date, y=diff))+
   geom_line()+
-  geom_hline(aes(yintercept=0),color="black")+
-  geom_ribbon(aes(ymin=0,ymax=ifelse(diff>0, diff,0)),fill="blue",alpha=0.2)+
-  geom_ribbon(aes(ymin=ifelse(diff<0, diff,0),ymax=0),fill="red",alpha=0.2)  +
+  geom_hline(aes(yintercept=0),
+             color="black")+
+  geom_ribbon(aes(ymin=0,
+                  ymax=ifelse(diff>0, diff, 0)), 
+              fill="blue", 
+              alpha=0.2)+
+  geom_ribbon(aes(ymin=ifelse(diff<0, diff, 0), 
+                  ymax=0), 
+              fill="red", 
+              alpha=0.2)  +
   geom_rect(data=recessions, 
             inherit.aes = FALSE, 
             aes(ymin=-Inf, 
@@ -209,14 +216,15 @@ ggplot(plot4, aes(x=date, y=diff))+
             fill = "black", 
             alpha = 0.2)+
   theme_bw()+
-  scale_x_date(date_breaks="2 years",date_labels="%Y")+
+  scale_x_date(date_breaks="2 years",
+               date_labels="%Y")+
   labs(title = "Yield Curve Inversion: 10-year minus3-month U.S. Treasury rates",
        subtitle = "Difference in % points, monthly averages.\nShaded areas correspond to recessions",
        caption = "Source: St. Louis Federal Reserve Economic Database (FRED)",
        x="",
        y="Difference (10 year-3 month) yield in %")
- 
-  
+
+
 ```
 
 This graph shows us that the yield curve actually flattens before recessions. Therefore, a flatten of the yield curve can predict an upcoming recession.

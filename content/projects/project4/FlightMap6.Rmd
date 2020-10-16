@@ -4,7 +4,8 @@ author: "Alexander Pracht"
 date: "10/14/2020"
 output: html_document
 ---
-On this page I would like to analyse the current flight schedule of Lufthansa Cargo. I downloaded the data directly from the [Lufthansa Cargo Website](https://lufthansa-cargo.com/network/schedule-routings).
+On this page I would like to analyse the current flight schedule of Lufthansa Cargo. I downloaded the data directly from the [Lufthansa Cargo Website](https://lufthansa-cargo.com/network/schedule-routings). I chose Lufthansa Cargo because it is a German company and their data is publicly available on their webpage. It would be interesting to conduct this study also for other airlines in order to determine which airlines are more confident compared to others about the future in the light of Corona.
+
 
 I wanted to check my hypothesis that Lufthansa Cargo offers few flights right now, but will expand their flight schedule from November on.
 
@@ -13,6 +14,7 @@ However some of the functions on this page are already outdated. But I enjoyed p
 
 
 ```{r, plotting, fig.width=15}
+# loading libraries
 library(ggplot2)
 library(maps)
 library(rgeos)
@@ -23,14 +25,7 @@ library(plyr)
 library(dplyr)
 library(rgdal)
 library(data.table)
-count.dups <- function(DF){
-  DT <- data.table(DF)
-  DT[,.N, by = names(DT)]
-}
 
-fortify.SpatialLinesDataFrame = function(model, data, ...){
-ldply(model@lines, fortify)
-}
 # importing the data from the csv file
 lh_data = read.csv("data/LHcargo_FlightScheduleALL.csv", header=TRUE)
 
@@ -52,7 +47,7 @@ lh_data_sliced <-lh_data %>%
 # filter for the current flight schedule as of 15th October 2020
 lh_15_10 <- lh_data_sliced%>%
   filter(Start_Op <= "2020-10-15")%>%
-    group_by(DEP,ARR)%>%
+  group_by(DEP,ARR)%>%
   summarise(count = sum(sum))
 
 # filter for flight schedule as of November 2020
@@ -78,13 +73,6 @@ schedule_final_10 <- left_join(schedule_final_10, airports_dep)
 schedule_final_11 <- left_join(lh_11, airports_arr)
 schedule_final_11 <- left_join(schedule_final_11, airports_dep)
 
-
-# delete duplicates to only show 
-count_final_10 <- count.dups(schedule_final_10)
-count_final_10 <- na.omit(count_final_10)
-count_final_11 <- count.dups(schedule_final_11)
-count_final_11 <- na.omit(count_final_11)
- 
 # get worldmap
 worldmap = map_data ("world")
 
@@ -92,67 +80,72 @@ worldmap = map_data ("world")
 library(rgdal) 
 urbanareasin <- rgdal::readOGR("data/ne_10m_urban_areas/ne_10m_urban_areas.shp")
 urb <- c(geom_polygon(aes(long, lat, group = group),
-size = 0.3,
-color = "#ffffff",
-fill = "#ffffff",
-alpha = 1,
-data = urbanareasin))
+                      size = 0.3,
+                      color = "#ffffff",
+                      fill = "#ffffff",
+                      alpha = 1,
+                      data = urbanareasin))
 
 # wrld layer
 wrld<-c(geom_polygon(aes(long,lat,group=group), size = 0.1, colour= "#090D2A",
-fill="#090D2A", alpha=0.8, data=worldmap))
+                     fill="#090D2A", alpha=0.8, data=worldmap))
 ```
 
 ## Lufthansa Cargo Flight Schedule (15th October 2020)
 
 ```{r, plottingOct, fig.width=15, fig.height= 10}
-# October
+# October plotting
 ggplot() +
-wrld +
-urb+
-geom_segment(data= schedule_final_10, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
-  scale_color_gradientn(colours = rainbow(20), limits = c(0,166), name ="Number of flights per route")+
-theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-theme(legend.position = c(0,0.4),
-legend.justification = c(0,1),
-legend.background = element_rect(colour = NA, fill = NA),
-legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.text = element_text(colour='white', size = 20),
-legend.title = element_text(colour="white", size = 20),
-plot.title = element_text(size =22),
-panel.background = element_rect(fill = NA)) +
-#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
-annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste("Flights Lufthansa Cargo October"),color="white")+
+  wrld +
+  urb+
+  geom_segment(data= schedule_final_10, 
+               aes(y=Lat_Dep,
+                   x=Long_Dep, 
+                   yend=Lat_Arr, 
+                   xend=Long_Arr, 
+                   colour=count), 
+               alpha = 0.3)+ 
+  scale_color_gradientn(colours = rainbow(20), 
+                        limits = c(0,166), 
+                        name ="Number of flights per route")+
+  theme(panel.background = element_rect(fill='#00001C',
+                                        colour='#00001C'),
+        panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(legend.position = c(0,0.4),
+        legend.justification = c(0,1),
+        legend.background = element_rect(colour = NA, fill = NA),
+        legend.key = element_rect(colour = NA, fill = NA, size = 10),
+        legend.text = element_text(colour='white', size = 20),
+        legend.title = element_text(colour="white", size = 20),
+        plot.title = element_text(size =22)) +
+  annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+           label=paste("Flights Lufthansa Cargo October"),color="white")+
   labs(title = "Fewer flight are planned for October at Lufthansa Cargo", y="Latitude", x="Longitude", caption = "Lufthansa Cargo Flight Plan")
 ```
 
 ## Lufthansa Cargo Flight Schedule (November 2020)
 
 ```{r, plottingNov, fig.width=15, fig.height=10}
-# November
+# November plotting
 ggplot() +
-wrld +
-urb+
-geom_segment(data= schedule_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
+  wrld +
+  urb+
+  geom_segment(data= schedule_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
   scale_color_gradientn(colours = rainbow(20), limits = c(0,166), name ="Number of flights per route")+
-theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
-theme(legend.position = c(0,0.4),
-legend.justification = c(0,1),
-legend.background = element_rect(colour = NA, fill = NA),
-legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.title = element_text(colour="white", size = 20),
-legend.text = element_text(colour='white', size = 20),
-plot.title = element_text(size =22),
-panel.background = element_rect(fill = NA)
-) +
-#guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
-annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste("Flights Lufthansa Cargo November"),color="white")+
+  theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
+  theme(legend.position = c(0,0.4),
+        legend.justification = c(0,1),
+        legend.background = element_rect(colour = NA, fill = NA),
+        legend.key = element_rect(colour = NA, fill = NA, size = 10),
+        legend.title = element_text(colour="white", size = 20),
+        legend.text = element_text(colour='white', size = 20),
+        plot.title = element_text(size =22)) +
+  annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
+           label=paste("Flights Lufthansa Cargo November"),color="white")+
   labs(title = "More routes are planned for November at Lufthansa Cargo", y="Latitude", x="Longitude", caption = "Lufthansa Cargo Flight Plan")
 
 ```
 
-What we can see from these graphs is that the flight schedule in October has less flights than the one for November. This means that Lufthansa Cargo believes they can increase their flights and it network, offering more flights to more places.
+What we can see from these graphs is that the flight schedule in October has less flights than the one for November. This means that Lufthansa Cargo believes they can increase their flights and it network, offering more flights to more places. As the Covid case numbers in this week are rising again, it would be interesting to know whether Lufthansa Cargo is still that confident for their flight schedule for November.
 
 

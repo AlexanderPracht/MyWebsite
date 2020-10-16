@@ -47,7 +47,7 @@ library(knitr)
 
 Not everyone understands that the world is heating up...
 
-```{r trum_twiiter}
+```{r trum_twiiter, include=FALSE}
 knitr::include_graphics("/img/twitter_trump.jpg", error = FALSE)
 ```
 Click [here](https://twitter.com/realdonaldtrump/status/265895292191248385?lang=en) to see this post on twitter.
@@ -208,7 +208,7 @@ Now, we use the bootstrap method to create a confidence interval.
 library(infer)
 set.seed(1234)
 data_infer <- comparison %>%
-   filter(interval == "2011-present")%>%
+  filter(interval == "2011-present")%>%
   specify(response = delta)%>%
   generate(reps = 1000, type="bootstrap")%>%
   calculate(stat="mean")
