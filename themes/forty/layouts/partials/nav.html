@@ -1,7 +1,7 @@
 {{ "<!-- Header -->" | safeHTML }}
-    <header id="header" class="alt">
+     <header id="header" class="alt">
         <a href="{{ .Site.BaseURL }}" class="logo">
-            <img src="{{ .Site.Params.baseURL }}/img/{{ .Site.Params.Navigation.logo }}" alt="" width = 80 height = 80/>
+            <img src="{{ .Site.Params.baseURL }}/img/{{ .Site.Params.Navigation.logo }}" alt="" width = 50 height = 50/>
         
         </a>
         <a href="{{ .Site.BaseURL }}" class = "logo">
@@ -13,14 +13,13 @@
             <a href="#menu">{{ .Site.Params.Navigation.menu }}</a>
         </nav>
     </header>
-
+    
 {{ "<!-- Menu -->" | safeHTML }}
     <nav id="menu">
         <ul class="links">
             {{ range .Site.Params.Navigation.links }}
                 <li><a href="{{ .url | absURL}}">{{ .name }}</a></li>
             {{ end }}
-
         </ul>
         <ul class="actions vertical">
             {{ range .Site.Params.Navigation.button1 }}
