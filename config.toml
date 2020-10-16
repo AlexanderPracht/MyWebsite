@@ -110,16 +110,22 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Aviation Case Study"
       subtitle = "Lufthansa Cargo Flight Schedule"
-      image = "pic04.jpg"
+      image = "AviationPlot.png"
       url = "/projects/project4/flightmap6"
       
     [[params.tiles.showcase]]
       title = "Download Alex's CV"
       subtitle = "CV Alexander Pracht 2020"
-      image = "projects/CV/Alexander Pracht CV 2020.pdf"
+      image = "CV_AP.jpg"
       url = "/projects/CV/Alexander Pracht CV 2020.pdf"
 
   [params.blog]
+    enable = true
+  
+    [[params.blog.showcase]]
+    title = "Hallo"
+    subtitle= "lets see"
+    
     # All blogs defined in their own files. You can find example blogs
     # at 'exampleSite/content/blogs'. Copy the 'blogs' folder into the 'content' directory
     # at the root of this Hugo site.
