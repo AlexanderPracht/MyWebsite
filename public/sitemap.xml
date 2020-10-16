@@ -48,11 +48,6 @@
   </url>
   
   <url>
-    <loc>/blogs/ipsum/</loc>
-    <lastmod>2017-10-31T21:28:43-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/categories/</loc>
   </url>
   
@@ -62,6 +57,10 @@
   
   <url>
     <loc>/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>/blogs/blog1/</loc>
   </url>
   
 </urlset>

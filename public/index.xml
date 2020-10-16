@@ -65,15 +65,6 @@ To define temperature anomalies you need to have a reference, or base, period wh
     </item>
     
     <item>
-      <title>Ipsum</title>
-      <link>/blogs/ipsum/</link>
-      <pubDate>Tue, 31 Oct 2017 21:28:43 -0500</pubDate>
-      
-      <guid>/blogs/ipsum/</guid>
-      <description>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa sed magna lacinia magna pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis tempus.</description>
-    </item>
-    
-    <item>
       <title>FlightMap</title>
       <link>/projects/project4/flightmap6/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -83,6 +74,15 @@ To define temperature anomalies you need to have a reference, or base, period wh
 I wanted to check my hypothesis that Lufthansa Cargo offers few flights right now, but will expand their flight schedule from November on.
 For visualisation I looked at the following webpage.However some of the functions on this page are already outdated.
 library(ggplot2)library(maps)library(rgeos)## Loading required package: sp## rgeos version: 0.</description>
+    </item>
+    
+    <item>
+      <title>Trump Face News</title>
+      <link>/blogs/blog1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/blogs/blog1/</guid>
+      <description>library(twitterwidget)twitterwidget(twid=&amp;quot;1315316071243476997&amp;quot;){&#34;x&#34;:{&#34;twid&#34;:&#34;1315316071243476997&#34;,&#34;pars&#34;:null},&#34;evals&#34;:[],&#34;jsHooks&#34;:[]}https://twitter.com/realDonaldTrump/status/1315316071243476997</description>
     </item>
     
   </channel>
