@@ -133,11 +133,9 @@ disqusShortname = ""
   [params.two]
     enable = true
     title = "My data analysis using R"
-    subtitle = """During my studies at London Business School I developed my skills in data analysis and coding in R. 
-    To see some analyses click on the link below."""
-    buttonText = "Download Alex CV"
-    href = "projects/CV/Alexander Pracht CV 2020.pdf"
-    image = "CV_AP.jpg"
+    subtitle = "During my studies at London Business School I developed my skills in data analysis and coding in R. \nTo see some analyses click on the link below."
+    buttonText = "Find out more about the MFA @LBS click here "
+    href = "https://www.london.edu/masters-degrees/masters-in-financial-analysis"
 
 
   # Contact section

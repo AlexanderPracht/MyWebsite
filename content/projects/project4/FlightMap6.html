@@ -162,10 +162,12 @@ theme(legend.position = c(0,0.4),
 legend.justification = c(0,1),
 legend.background = element_rect(colour = NA, fill = NA),
 legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.text = element_text(colour=&#39;white&#39;, size = 20)) +
+legend.text = element_text(colour=&#39;white&#39;, size = 20),
+plot.title = element_text(size =22)) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste(&quot;Flights Lufthansa Cargo October&quot;),color=&quot;white&quot;)</code></pre>
+label=paste(&quot;Flights Lufthansa Cargo October&quot;),color=&quot;white&quot;)+
+  labs(title = &quot;Fewer flight are planned for October at Lufthansa Cargo&quot;, colour = &quot;Number of flights per route&quot;, y=&quot;&quot;, x=&quot;&quot;)</code></pre>
 <pre><code>## Warning: Removed 9 rows containing missing values (geom_segment).</code></pre>
 <p><img src="/projects/project4/FlightMap6_files/figure-html/plottingOct-1.png" width="1440" /></p>
 </div>
@@ -182,11 +184,13 @@ theme(legend.position = c(0,0.4),
 legend.justification = c(0,1),
 legend.background = element_rect(colour = NA, fill = NA),
 legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.text = element_text(colour=&#39;white&#39;, size = 20)) +
+legend.text = element_text(colour=&#39;white&#39;, size = 20),
+plot.title = element_text(size =22)
+) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate(&quot;text&quot;,x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste(&quot;Flights Lufthansa Cargo November&quot;),color=&quot;white&quot;)+
-  labs(title = &quot;More routes are planned for November at Lufthansa Cargo&quot;, legend = &quot;Number of flights per route&quot;)</code></pre>
+  labs(title = &quot;More routes are planned for November at Lufthansa Cargo&quot;, colour = &quot;Number of flights per route&quot;, y=&quot;&quot;, x=&quot;&quot;)</code></pre>
 <pre><code>## Warning: Removed 10 rows containing missing values (geom_segment).</code></pre>
 <p><img src="/projects/project4/FlightMap6_files/figure-html/plottingNov-1.png" width="1440" /></p>
 <p>What we can see from these graphs is that the flight schedule in October has less flights than the one for November. This means that Lufthansa Cargo believes they can increase their flights and it network, offering more flights to more places.</p>

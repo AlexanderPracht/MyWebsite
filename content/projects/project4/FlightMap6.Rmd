@@ -116,10 +116,12 @@ theme(legend.position = c(0,0.4),
 legend.justification = c(0,1),
 legend.background = element_rect(colour = NA, fill = NA),
 legend.key = element_rect(colour = NA, fill = NA, size = 10),
-legend.text = element_text(colour='white', size = 20)) +
+legend.text = element_text(colour='white', size = 20),
+plot.title = element_text(size =22)) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
-label=paste("Flights Lufthansa Cargo October"),color="white")
+label=paste("Flights Lufthansa Cargo October"),color="white")+
+  labs(title = "Fewer flight are planned for October at Lufthansa Cargo", colour = "Number of flights per route", y="", x="")
 ```
 
 ## Lufthansa Cargo Flight Schedule (November 2020)
@@ -137,11 +139,12 @@ legend.justification = c(0,1),
 legend.background = element_rect(colour = NA, fill = NA),
 legend.key = element_rect(colour = NA, fill = NA, size = 10),
 legend.text = element_text(colour='white', size = 20),
+plot.title = element_text(size =22)
 ) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flights Lufthansa Cargo November"),color="white")+
-  labs(title = "More routes are planned for November at Lufthansa Cargo", colour = "Number of flights per route, y="", x="")
+  labs(title = "More routes are planned for November at Lufthansa Cargo", colour = "Number of flights per route", y="", x="")
 
 ```
 
