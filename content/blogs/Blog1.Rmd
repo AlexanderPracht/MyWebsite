@@ -1,0 +1,20 @@
+---
+title: "Trump Face News"
+author: "Alexander Pracht"
+date: "10/16/2020"
+categories:
+- ''
+- ''
+slug: blog1
+keywords: ''
+image: trump.jpg
+draft: no
+description: Fake News by Trump
+---
+
+```{r}
+library(twitterwidget)
+twitterwidget(twid="1315316071243476997")
+```
+
+https://twitter.com/realDonaldTrump/status/1315316071243476997
