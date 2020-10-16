@@ -42,10 +42,6 @@ disqusShortname = ""
     menu = "Menu"
     # Optional logo as brand stored in img/
     logo = "LBS.png"
-
-    [[params.navigation.links]]
-      name = "Home"
-      url = "#"
       
     [[params.navigation.links]]
       name = "Yield Curve Inversion"
@@ -70,11 +66,10 @@ disqusShortname = ""
     [[params.navigation.button1]]
       name = "Download Alex's CV"
       url = "projects/CV/Alexander Pracht CV 2020.pdf"
-
-    # Button Style 2
+      
     [[params.navigation.button2]]
-      name = "My Blog"
-      url = "/blogs"
+      name = "Home"
+      url = "#"
 
 
   # Banner section
