@@ -1,6 +1,14 @@
 {{ "<!-- Header -->" | safeHTML }}
     <header id="header" class="alt">
-        <a href="{{ .Site.BaseURL }}" class="logo"><img src="{{ .Site.Params.baseURL }}/img/{{ .Site.Params.Navigation.logo }}" alt="" /><strong>{{ .Site.Params.Navigation.title }}</strong> <span>{{ .Site.Params.Navigation.subtitle }}</span></a>
+        <a href="{{ .Site.BaseURL }}" class="logo">
+            <img src="{{ .Site.Params.baseURL }}/img/{{ .Site.Params.Navigation.logo }}" alt="" width = 40 height = 40/>
+        
+        </a>
+        <a href="{{ .Site.BaseURL }}" class = "logo">
+           <strong>{{ .Site.Params.Navigation.title }}</strong> 
+           <span>{{ .Site.Params.Navigation.subtitle }}</span> 
+        </a>
+        
         <nav>
             <a href="#menu">{{ .Site.Params.Navigation.menu }}</a>
         </nav>
