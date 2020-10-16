@@ -110,7 +110,7 @@ ggplot() +
 wrld +
 urb+
 geom_segment(data= schedule_final_10, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
-  scale_color_gradientn(colours = rainbow(20), limits = c(0,166))+
+  scale_color_gradientn(colours = rainbow(20), limits = c(0,166), name ="Number of flights per route")+
 theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
 theme(legend.position = c(0,0.4),
 legend.justification = c(0,1),
@@ -121,7 +121,7 @@ plot.title = element_text(size =22)) +
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flights Lufthansa Cargo October"),color="white")+
-  labs(title = "Fewer flight are planned for October at Lufthansa Cargo", colour = "Number of flights per route", y="", x="")
+  labs(title = "Fewer flight are planned for October at Lufthansa Cargo", y="Latitude", x="Longitude")
 ```
 
 ## Lufthansa Cargo Flight Schedule (November 2020)
@@ -132,7 +132,7 @@ ggplot() +
 wrld +
 urb+
 geom_segment(data= schedule_final_11, aes(y=Lat_Dep,x=Long_Dep, yend=Lat_Arr, xend=Long_Arr, colour=count), alpha = 0.3)+ 
-  scale_color_gradientn(colours = rainbow(20), limits = c(0,166))+
+  scale_color_gradientn(colours = rainbow(20), limits = c(0,166), name ="Number of flights per route")+
 theme(panel.background = element_rect(fill='#00001C',colour='#00001C'), panel.grid.major = element_blank(), panel.grid.minor = element_blank()) +
 theme(legend.position = c(0,0.4),
 legend.justification = c(0,1),
@@ -144,7 +144,7 @@ plot.title = element_text(size =22)
 #guides(fill = guide_legend(keywidth = 20, keyheight = 20)) +
 annotate("text",x=max(worldmap$long),y=-60,hjust=.9,size=6,
 label=paste("Flights Lufthansa Cargo November"),color="white")+
-  labs(title = "More routes are planned for November at Lufthansa Cargo", colour = "Number of flights per route", y="", x="")
+  labs(title = "More routes are planned for November at Lufthansa Cargo", y="Latitude", x="Longitude")
 
 ```
 
