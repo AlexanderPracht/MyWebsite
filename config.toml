@@ -43,7 +43,7 @@ disqusShortname = ""
     # Optional logo as brand stored in img/
     logo = "LBS.png"
 
-    [[params.navigation.links]]
+    [[params.navigation.button2]]
       name = "Home"
       url = "#"
       
@@ -70,11 +70,6 @@ disqusShortname = ""
     [[params.navigation.button1]]
       name = "Download Alex's CV"
       url = "projects/CV/Alexander Pracht CV 2020.pdf"
-
-    # Button Style 2
-    [[params.navigation.button2]]
-      name = "My Blog"
-      url = "/blogs"
 
 
   # Banner section
