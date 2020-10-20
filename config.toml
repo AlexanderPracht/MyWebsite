@@ -129,7 +129,7 @@ disqusShortname = ""
   [params.two]
     enable = true
     title = "About Alex"
-    subtitle = "Industrial Engineer @ Karlsruhe Institute of Technology, Financial Analysis @London Business School \n Running, Swimming, Lifting\nConsulting\nGermany, USA, Sweden, Dubai"
+    subtitle = "Industrial Engineer @ Karlsruhe Institute of Technology, Financial Analysis @London Business School \n Running, Swimming, Lifting \n Consulting \n Germany, USA, Sweden, Dubai"
     buttonText = "Find out more about the MFA @LBS click here "
     url = "https://www.london.edu/masters-degrees/masters-in-financial-analysis"
 
